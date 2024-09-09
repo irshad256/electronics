@@ -22,6 +22,12 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 
 Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
+## Generating service classes
+
+Copy the api-docs from swagger and paste it in src/open-api/open-api.json.
+Run `npm run api-gen` to generate the service classes.
+api-gen command is configured in package.json file in the root directory
+
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
