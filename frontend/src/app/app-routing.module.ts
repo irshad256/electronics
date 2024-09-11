@@ -5,6 +5,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RegisterComponent } from './register/register.component';
+import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 
 const routes: Routes = [
   { 
@@ -31,6 +32,10 @@ const routes: Routes = [
       {
         path: 'login/register',
         component: RegisterComponent
+      },
+      {
+        path: 'terms-and-conditions',
+        component: TermsAndConditionsComponent
       }
     ]
   }
