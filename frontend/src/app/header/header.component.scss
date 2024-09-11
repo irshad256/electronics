@@ -19,6 +19,7 @@
 .logo-img {
     width: 75px;
     margin-right: 100px;
+    cursor:pointer;
 }
 
 .header-bottom-top {
@@ -55,13 +56,17 @@
 
 .sign-in-register-link {
     color: red;
+    margin-left: 200px;
+    padding-left: 200px;
+    margin-top: 8px;
+    margin-right: 15px;
+    cursor: pointer;
 }
 
 .fa-cart-shopping {
     color: red;
     margin-top: 14px;
-    margin-left: 200px;
-    padding-left: 200px;
+    cursor:pointer;
 }
 
 .line-break {

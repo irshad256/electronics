@@ -7,15 +7,13 @@
 </div>
 <div class="line-break"></div>
 <div class="header-bottom">  
-    <!-- <nav class="nav"> -->
-        <div class="header-bottom-top">
-            <img class="logo-img" src="../../assets/SAP_scrn_R.png">
-            <div class="search-container">
-                <input class="search" type="search" placeholder="Search here" aria-label="Search">
-                <i class="fa fa-search search-icon"></i>
-            </div>
+    <div class="header-bottom-top">
+        <img class="logo-img" src="../../assets/SAP_scrn_R.png" (click)="home()">
+        <div class="search-container">
+            <input class="search" type="search" placeholder="Search here" aria-label="Search">
+            <i class="fa fa-search search-icon"></i>
         </div>
-        <a class="nav-link sign-in-register-link" href="#">Sign In / Register</a>
-        <i class="fa-solid fa-cart-shopping"></i>
-    <!-- </nav> -->
+    </div>
+    <div class="sign-in-register-link" (click)="login()">Sign In / Register</div>
+    <i class="fa-solid fa-cart-shopping"></i>
 </div>

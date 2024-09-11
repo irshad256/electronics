@@ -1,0 +1,52 @@
+<div class="container-fluid card register-container">
+    <div class="text-center register-header">
+        <p (click)="home()">Home</p>
+        <h3>Create an Account</h3>
+    </div>
+    <div class="register-form">
+        <div class="mb-3">
+            <label for="title" class="form-label">Title</label>
+            <select name="title" class="form-control" id="title">
+                <option selected disabled >Select Title</option>
+                <option value="mr">Mr.</option>
+                <option value="mrs">Mrs.</option>
+                <option value="miss">Miss</option>
+                <option value="ms">Ms.</option>
+                <option value="dr">Dr.</option>
+                <option value="rev">Rev.</option>
+              </select>
+        </div>
+        <div class="mb-3">
+            <label for="firstName" class="form-label">First name</label>
+            <input type="firstName" class="form-control" id="firstName" placeholder="First name">
+        </div>
+        <div class="mb-3">
+            <label for="lasttName" class="form-label">Last name</label>
+            <input type="lasttName" class="form-control" id="lasttName" placeholder="Last name">
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" placeholder="Enter email">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" placeholder="Password">
+        </div>
+        <div class="mb-3">
+            <label for="confirmPassword" class="form-label">Confirm password</label>
+            <input type="confirmPassword" class="form-control" id="confirmPassword" placeholder="Confirm password">
+        </div>
+        <div class="mb-3">
+            <input type="checkbox" id="termsandconditions" name="termsandconditions" value="termsandconditions">
+            <label for="termsandconditions">I am confirming that I have read and agreed with the <span class="terms-and-conditions-link" (click)="termsAndConditions()">Terms & Conditions</span></label>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary" >Register</button>
+        </div>
+        <div class="mb-3">
+            <div class="have-account" (click)="login()">I already have an account. Sign In</div>
+        </div>
+    </div>
+</div>
+
+
