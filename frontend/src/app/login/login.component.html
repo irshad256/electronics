@@ -6,17 +6,17 @@
     <div class="login-form">
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email">
+            <input [(ngModel)]="authRequest.email" type="email" class="form-control" id="email" placeholder="Enter email">
         </div>
         <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input  [(ngModel)]="authRequest.password" type="password" class="form-control" id="password" placeholder="Password">
         </div>
         <div class="mb-3">
             <div class="forgot-password" (click)="resetPassword()">Forgot password?</div>
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary">Sign In</button>
+            <button class="btn btn-primary" (click)="login()">Sign In</button>
         </div>
         <h5 class="mb-3 no-account">
             Don’t have an account?
