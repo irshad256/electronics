@@ -23,5 +23,9 @@ public class AuthenticationController {
         return ResponseEntity.accepted().build();
     }
 
+    @GetMapping("activate-account")
+    public void activateAccount(@RequestParam String token) throws MessagingException {
+        service.activateAccount(token);
+    }
 
 }

@@ -9,6 +9,8 @@ import { BaseService } from '../base-service';
 import { ApiConfiguration } from '../api-configuration';
 import { StrictHttpResponse } from '../strict-http-response';
 
+import { activateAccount } from '../fn/authentication/activate-account';
+import { ActivateAccount$Params } from '../fn/authentication/activate-account';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
 
@@ -44,6 +46,31 @@ export class AuthenticationService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `activateAccount()` */
+  static readonly ActivateAccountPath = '/auth/activate-account';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `activateAccount()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  activateAccount$Response(params: ActivateAccount$Params, context?: HttpContext): Observable<StrictHttpResponse<void>> {
+    return activateAccount(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `activateAccount$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  activateAccount(params: ActivateAccount$Params, context?: HttpContext): Observable<void> {
+    return this.activateAccount$Response(params, context).pipe(
+      map((r: StrictHttpResponse<void>): void => r.body)
     );
   }
 

@@ -6,4 +6,6 @@ import jakarta.mail.MessagingException;
 public interface AuthenticationService {
 
     void register(RegistrationRequest request) throws MessagingException;
+
+    void activateAccount(String token) throws MessagingException;
 }
