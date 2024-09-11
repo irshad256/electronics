@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class AuthenticationRequest {
+public class RegistrationRequest {
 
     private String title;
 
@@ -18,4 +18,8 @@ public class AuthenticationRequest {
     private String email;
 
     private String password;
+
+    private String confirmPassword;
+
+    private boolean termsAndConditionCheck;
 }

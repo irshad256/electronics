@@ -24,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public void register(AuthenticationRequest request) throws MessagingException {
+    public void register(RegistrationRequest request) throws MessagingException {
         Role role = roleRepository.findByName("USER").orElseThrow(() -> new IllegalArgumentException("Role USER not initialized"));
         Optional<User> existingUser = userRepository.findByEmail(request.getEmail());
         if (existingUser.isPresent()) {

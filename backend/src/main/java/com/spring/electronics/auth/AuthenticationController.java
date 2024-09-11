@@ -18,7 +18,7 @@ public class AuthenticationController {
 
     @PostMapping(value = "/register", produces = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    ResponseEntity<?> register(@RequestBody AuthenticationRequest request) throws MessagingException {
+    ResponseEntity<?> register(@RequestBody RegistrationRequest request) throws MessagingException {
         service.register(request);
         return ResponseEntity.accepted().build();
     }
