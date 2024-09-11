@@ -5,6 +5,7 @@ import com.spring.electronics.email.EmailService;
 import com.spring.electronics.email.EmailTemplateName;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleRepository;
+import com.spring.electronics.security.JwtService;
 import com.spring.electronics.user.Token;
 import com.spring.electronics.user.TokenRepository;
 import com.spring.electronics.user.User;
@@ -12,13 +13,18 @@ import com.spring.electronics.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.security.SecureRandom;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -34,6 +40,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final TokenRepository tokenRepository;
 
     private final EmailService emailService;
+
+    private final AuthenticationManager authenticationManager;
+
+    private final JwtService jwtService;
 
     @Value("${application.security.jwt.activation.code.length}")
     private int codeLength;
@@ -76,7 +86,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        return null;
+        Authentication auth = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(
+                        request.getEmail(),
+                        request.getPassword()
+                )
+        );
+        Map<String, Object> claims = new HashMap<>();
+        User user = (User) auth.getPrincipal();
+        claims.put("fullName", user.getFullName());
+        return AuthenticationResponse
+                .builder()
+                .token(jwtService.generateToken(claims, user))
+                .build();
     }
 
     private void sendValidationEmail(User user) throws MessagingException {
