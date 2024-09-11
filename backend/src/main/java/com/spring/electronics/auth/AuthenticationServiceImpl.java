@@ -74,6 +74,11 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         tokenRepository.save(savedToken);
     }
 
+    @Override
+    public AuthenticationResponse authenticate(AuthenticationRequest request) {
+        return null;
+    }
+
     private void sendValidationEmail(User user) throws MessagingException {
         String newToken = generateAndSaveActivationToken(user);
         emailService.sendEmail(

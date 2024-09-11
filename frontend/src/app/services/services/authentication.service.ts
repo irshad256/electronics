@@ -11,6 +11,9 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { activateAccount } from '../fn/authentication/activate-account';
 import { ActivateAccount$Params } from '../fn/authentication/activate-account';
+import { AuthenticationResponse } from '../models/authentication-response';
+import { login } from '../fn/authentication/login';
+import { Login$Params } from '../fn/authentication/login';
 import { register } from '../fn/authentication/register';
 import { Register$Params } from '../fn/authentication/register';
 
@@ -46,6 +49,31 @@ export class AuthenticationService extends BaseService {
       map((r: StrictHttpResponse<{
 }>): {
 } => r.body)
+    );
+  }
+
+  /** Path part for operation `login()` */
+  static readonly LoginPath = '/auth/login';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `login()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  login$Response(params: Login$Params, context?: HttpContext): Observable<StrictHttpResponse<AuthenticationResponse>> {
+    return login(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `login$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  login(params: Login$Params, context?: HttpContext): Observable<AuthenticationResponse> {
+    return this.login$Response(params, context).pipe(
+      map((r: StrictHttpResponse<AuthenticationResponse>): AuthenticationResponse => r.body)
     );
   }
 

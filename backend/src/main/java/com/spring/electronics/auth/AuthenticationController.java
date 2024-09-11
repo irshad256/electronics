@@ -28,4 +28,8 @@ public class AuthenticationController {
         service.activateAccount(token);
     }
 
+    @PostMapping(value = "/login", produces = "application/json")
+    ResponseEntity<AuthenticationResponse> login(@RequestBody AuthenticationRequest request){
+        return ResponseEntity.ok(service.authenticate(request));
+    }
 }
