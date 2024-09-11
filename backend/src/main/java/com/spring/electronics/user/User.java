@@ -32,6 +32,8 @@ public class User implements UserDetails, Principal {
     @GeneratedValue
     private long id;
 
+    private String title;
+
     private String firstName;
 
     private String lastName;
