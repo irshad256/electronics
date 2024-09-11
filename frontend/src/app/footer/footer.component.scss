@@ -1,0 +1,34 @@
+footer {
+    background-color:#212738;
+    padding: auto;
+    position: static;
+    width: 100%;         /* Full width of the viewport */
+    bottom: 0;           /* Stick to the bottom of the page */
+}
+
+.footer-columns {
+    display: flex;
+    justify-content: space-between; /* Space between columns */
+}
+
+.footer-column {
+    flex: 1; /* Each column takes up equal space */
+    margin: 0 10px; /* Spacing between columns */
+    padding-top: 20px;
+    padding-left: 40px;
+}
+
+.footer-column h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.footer-column a {
+    color: #fff;
+}
+
+.footer-column ul {
+    list-style: none; /* Remove bullets */
+    padding: 0;
+}

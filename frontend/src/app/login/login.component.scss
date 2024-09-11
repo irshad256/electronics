@@ -1,0 +1,43 @@
+.login-form {
+    width: 50%;
+    align-self: center;
+}
+
+input::placeholder {
+    color: #b1b4b7;;
+}
+
+.forgot-password {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.forgot-password:hover {
+    color: #fe5757;;
+}
+
+.btn-primary {
+    background-color: #fe5757;
+    border-color: #fe5757;
+    width: -webkit-fill-available;
+    padding: 12px;
+}
+
+.btn-secondary {
+    width: -webkit-fill-available;
+    padding: 12px;
+    margin-bottom: 50px;
+}
+
+.no-account {
+    margin-top: 45px;
+}
+
+.login-header {
+    background-color: #ececec;
+}
+
+.container-fluid {
+    padding-left: unset;
+    padding-right: unset;
+}

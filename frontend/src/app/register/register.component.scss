@@ -1,0 +1,46 @@
+.register-form {
+    width: 50%;
+    align-self: center;
+    margin-top: 50px;
+}
+
+input::placeholder {
+    color: #b1b4b7;;
+}
+
+.btn-primary {
+    background-color: #fe5757;
+    border-color: #fe5757;
+    width: -webkit-fill-available;
+    padding: 12px;
+}
+
+.register-header {
+    background-color: #ececec;
+}
+
+.container-fluid {
+    padding-left: unset;
+    padding-right: unset;
+}
+
+input[type="checkbox"] {
+    transform: scale(1.5); /* Increase size by 1.5 times */
+    margin-right: 20px;
+    cursor: pointer;
+}
+
+.have-account {
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 1.125rem;
+}
+
+.have-account:hover {
+    color: #fe5757;;
+}
+
+.terms-and-conditions-link {
+    color: #fe5757;
+    text-decoration: underline;
+}
