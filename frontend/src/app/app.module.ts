@@ -12,6 +12,9 @@ import { LoginComponent } from './login/login.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { RegisterComponent } from './register/register.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
+import { FormsModule } from '@angular/forms';
+import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,15 @@ import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-co
     LoginComponent,
     ResetPasswordComponent,
     RegisterComponent,
-    TermsAndConditionsComponent
+    TermsAndConditionsComponent,
+    ActivateAccountComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    FormsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
