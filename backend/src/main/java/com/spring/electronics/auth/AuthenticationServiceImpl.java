@@ -7,7 +7,6 @@ import com.spring.electronics.user.User;
 import com.spring.electronics.user.UserRepository;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +25,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public void register(AuthenticationRequest request) throws MessagingException {
-        Role role = roleRepository.findByName("USER").orElseThrow(()-> new IllegalArgumentException("Role USER not initialized"));
+        Role role = roleRepository.findByName("USER").orElseThrow(() -> new IllegalArgumentException("Role USER not initialized"));
         Optional<User> existingUser = userRepository.findByEmail(request.getEmail());
         if (existingUser.isPresent()) {
             throw new MessagingException("User already exist");
