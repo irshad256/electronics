@@ -44,7 +44,8 @@ export class RegisterComponent implements OnInit {
           body: this.registrationRequest
         }
       ).subscribe({
-        next: ()=> {
+        next: (res)=> {
+          console.log(res);
           this.router.navigate(['activate-account'])
         },
         error: (err) => {

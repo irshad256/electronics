@@ -6,7 +6,7 @@
     <div class="register-form">
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <select name="title" class="form-control" id="title">
+            <select [(ngModel)]="registrationRequest.title" class="form-control" id="title">
                 <option selected disabled >Select Title</option>
                 <option value="mr">Mr.</option>
                 <option value="mrs">Mrs.</option>
@@ -14,7 +14,7 @@
                 <option value="ms">Ms.</option>
                 <option value="dr">Dr.</option>
                 <option value="rev">Rev.</option>
-              </select>
+            </select>
         </div>
         <div class="mb-3">
             <label for="firstName" class="form-label">First name</label>
@@ -37,8 +37,8 @@
             <input [(ngModel)]="registrationRequest.confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
         </div>
         <div class="mb-3">
-            <input type="checkbox" id="termsandconditions" name="termsandconditions" value="termsandconditions">
-            <label [(ngModel)]="registrationRequest.termsAndConditionCheck" for="termsandconditions">I am confirming that I have read and agreed with the <span class="terms-and-conditions-link" (click)="termsAndConditions()">Terms & Conditions</span></label>
+            <input [(ngModel)]="registrationRequest.termsAndConditionCheck" type="checkbox" id="termsandconditions" value="termsandconditions">
+            <label for="termsandconditions">I am confirming that I have read and agreed with the <span class="terms-and-conditions-link" (click)="termsAndConditions()">Terms & Conditions</span></label>
         </div>
         <div class="mb-3">
             <button class="btn btn-primary" (click)="register()">Register</button>
