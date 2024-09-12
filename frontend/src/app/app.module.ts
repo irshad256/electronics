@@ -14,8 +14,9 @@ import { RegisterComponent } from './register/register.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { FormsModule } from '@angular/forms';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { CodeInputModule } from 'angular-code-input';
+import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,14 @@ import { CodeInputModule } from 'angular-code-input';
     CodeInputModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [
+    HttpClient,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpTokenInterceptor,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
