@@ -1,6 +1,7 @@
 .login-form {
     width: 50%;
     align-self: center;
+    margin-top: 50px;
 }
 
 input::placeholder {
@@ -40,4 +41,12 @@ input::placeholder {
 .container-fluid {
     padding-left: unset;
     padding-right: unset;
+}
+
+.fa-exclamation {
+    color: #db0002;
+}
+
+p {
+    margin-bottom: 0;
 }

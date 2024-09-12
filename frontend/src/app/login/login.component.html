@@ -4,19 +4,32 @@
         <h3>Login</h3>
     </div>
     <div class="login-form">
+        <div class="alert alert-danger" role="alert" *ngIf="errMsg.length">
+            <p *ngFor="let msg of errMsg">{{ msg }}</p>
+        </div>
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" placeholder="Enter email">
+            <input [(ngModel)]="authRequest.email" type="email"[ngClass]="{'form-control': true, 'error': errMsgEmail.length}" id="email" placeholder="Enter email">
+            <div role="alert" *ngIf="errMsgEmail.length">
+                <p *ngFor="let msg of errMsgEmail[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
         <div class="mb-3">
             <label class="form-label">Password</label>
-            <input type="password" class="form-control" id="password" placeholder="Password">
+            <input  [(ngModel)]="authRequest.password" type="password" [ngClass]="{'form-control': true, 'error': errMsgPswd.length}" id="password" placeholder="Password">
+            <div role="alert" *ngIf="errMsgPswd.length">
+                <p *ngFor="let msg of errMsgPswd[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
         <div class="mb-3">
             <div class="forgot-password" (click)="resetPassword()">Forgot password?</div>
         </div>
         <div class="mb-3">
-            <button class="btn btn-primary">Sign In</button>
+            <button class="btn btn-primary" (click)="login()">Sign In</button>
         </div>
         <h5 class="mb-3 no-account">
             Don’t have an account?

@@ -3,6 +3,7 @@ package com.spring.electronics.auth;
 import com.spring.electronics.auth.impl.AuthenticationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.mail.MessagingException;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +19,7 @@ public class AuthenticationController {
 
     @PostMapping(value = "/register", produces = "application/json")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    ResponseEntity<?> register(@RequestBody RegistrationRequest request) throws MessagingException {
+    ResponseEntity<?> register(@RequestBody @Valid RegistrationRequest request) throws MessagingException {
         service.register(request);
         return ResponseEntity.accepted().build();
     }
@@ -28,4 +29,8 @@ public class AuthenticationController {
         service.activateAccount(token);
     }
 
+    @PostMapping(value = "/login", produces = "application/json")
+    ResponseEntity<AuthenticationResponse> login(@RequestBody @Valid AuthenticationRequest request){
+        return ResponseEntity.ok(service.authenticate(request));
+    }
 }
