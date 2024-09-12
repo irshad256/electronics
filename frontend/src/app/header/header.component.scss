@@ -54,13 +54,25 @@
     display: inline-block;
 }
 
-.sign-in-register-link {
+.sign-in-register-link,
+.logged-in-user {
     color: red;
     margin-left: 200px;
     padding-left: 200px;
     margin-top: 8px;
     margin-right: 15px;
     cursor: pointer;
+}
+
+.sign-out{
+    color: red;
+    margin-top: 8px;
+    cursor: pointer;
+    margin-left: 50px;
+}
+
+.user-cart {
+    display: flex;
 }
 
 .fa-cart-shopping {

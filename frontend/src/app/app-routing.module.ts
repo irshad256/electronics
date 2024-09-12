@@ -7,6 +7,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { RegisterComponent } from './register/register.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { 
@@ -24,15 +25,18 @@ const routes: Routes = [
       },
       {
         path: 'login',
-        component: LoginComponent
+        component: LoginComponent,
+        canActivate: [AuthGuard] 
       },
       {
         path: 'forgot-password',
-        component: ResetPasswordComponent
+        component: ResetPasswordComponent,
+        canActivate: [AuthGuard] 
       },
       {
         path: 'login/register',
-        component: RegisterComponent
+        component: RegisterComponent,
+        canActivate: [AuthGuard] 
       },
       {
         path: 'terms-and-conditions',
@@ -40,7 +44,8 @@ const routes: Routes = [
       },
       {
         path: 'activate-account',
-        component: ActivateAccountComponent
+        component: ActivateAccountComponent,
+        canActivate: [AuthGuard] 
       }
     ]
   }
