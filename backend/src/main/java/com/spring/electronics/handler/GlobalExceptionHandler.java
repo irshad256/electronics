@@ -3,15 +3,18 @@ package com.spring.electronics.handler;
 
 import jakarta.mail.MessagingException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+import static com.spring.electronics.handler.BusinessErrorCodes.BAD_CREDENTIALS;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -29,17 +32,29 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionResponse> handleException(MethodArgumentNotValidException exp) {
-        Set<String> errors = new HashSet<>();
-        exp.getBindingResult().getAllErrors()
-                .forEach(error->{
-                    String errorMsg = error.getDefaultMessage();
-                    errors.add(errorMsg);
+        Map<String, Set<String>> errors = new HashMap<>();
+        exp.getBindingResult().getFieldErrors()
+                .forEach(error -> {
+                    errors.computeIfAbsent(error.getField(), key -> new HashSet<>()).add(error.getDefaultMessage());
                 });
         return ResponseEntity
                 .status(BAD_REQUEST)
                 .body(
                         ExceptionResponse.builder()
-                                .validationErrors(errors)
+                                .errors(errors)
+                                .build()
+                );
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ExceptionResponse> handleException(BadCredentialsException exp) {
+        return ResponseEntity
+                .status(UNAUTHORIZED)
+                .body(
+                        ExceptionResponse.builder()
+                                .businessErrorCode(BAD_CREDENTIALS.getCode())
+                                .businessExceptionDescription(BAD_CREDENTIALS.getDescription())
+                                .error(exp.getMessage())
                                 .build()
                 );
     }

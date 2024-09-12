@@ -18,5 +18,5 @@ public class ExceptionResponse {
     private String businessExceptionDescription;
     private String error;
     private Set<String> validationErrors;
-    private Map<String, String> errors;
+    private Map<String, Set<String>> errors;
 }

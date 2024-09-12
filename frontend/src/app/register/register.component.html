@@ -1,12 +1,15 @@
 <div class="container-fluid card register-container">
+
     <div class="text-center register-header">
         <p (click)="home()">Home</p>
         <h3>Create an Account</h3>
     </div>
+
     <div class="register-form">
+
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
-            <select [(ngModel)]="registrationRequest.title" class="form-control" id="title">
+            <select [(ngModel)]="registrationRequest.title" [ngClass]="{'form-control': true, 'error': errMsgTitle.length}" id="title">
                 <option selected disabled >Select Title</option>
                 <option value="mr">Mr.</option>
                 <option value="mrs">Mrs.</option>
@@ -15,26 +18,61 @@
                 <option value="dr">Dr.</option>
                 <option value="rev">Rev.</option>
             </select>
+            <div role="alert" *ngIf="errMsgTitle.length">
+                <p *ngFor="let msg of errMsgTitle[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
+    
         <div class="mb-3">
             <label for="firstName" class="form-label">First name</label>
-            <input [(ngModel)]="registrationRequest.firstName" type="firstName" class="form-control" id="firstName" placeholder="First name">
+            <input [(ngModel)]="registrationRequest.firstName" type="firstName" [ngClass]="{'form-control': true, 'error': errMsgFirstname.length}" id="firstName" placeholder="First name">
+            <div role="alert" *ngIf="errMsgFirstname.length">
+                <p *ngFor="let msg of errMsgFirstname[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
+
         <div class="mb-3">
             <label for="lastName" class="form-label">Last name</label>
-            <input [(ngModel)]="registrationRequest.lastName" type="lastName" class="form-control" id="lastName" placeholder="Last name">
+            <input [(ngModel)]="registrationRequest.lastName" type="lastName" [ngClass]="{'form-control': true, 'error': errMsgLastName.length}" id="lastName" placeholder="Last name">
+            <div role="alert" *ngIf="errMsgLastName.length">
+                <p *ngFor="let msg of errMsgLastName[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
+
         <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input [(ngModel)]="registrationRequest.email" type="email" class="form-control" id="email" placeholder="Enter email">
+            <input [(ngModel)]="registrationRequest.email" type="email" [ngClass]="{'form-control': true, 'error': errMsgEmail.length}" id="email" placeholder="Enter email">
+            <div role="alert" *ngIf="errMsgEmail.length">
+                <p *ngFor="let msg of errMsgEmail[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
+        
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input [(ngModel)]="registrationRequest.password" type="password" class="form-control" id="password" placeholder="Password">
+            <input [(ngModel)]="registrationRequest.password" type="password" [ngClass]="{'form-control': true, 'error': errMsgPswd.length}" id="password" placeholder="Password">
+            <div role="alert" *ngIf="errMsgPswd.length">
+                <p *ngFor="let msg of errMsgPswd[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
+        
         <div class="mb-3">
             <label for="confirmPassword" class="form-label">Confirm password</label>
-            <input [(ngModel)]="registrationRequest.confirmPassword" type="password" class="form-control" id="confirmPassword" placeholder="Confirm password">
+            <input [(ngModel)]="registrationRequest.confirmPassword" type="password" [ngClass]="{'form-control': true, 'error': errMsgCnfPswd.length}" id="confirmPassword" placeholder="Confirm password">
+            <div role="alert" *ngIf="errMsgCnfPswd.length">
+                <p *ngFor="let msg of errMsgCnfPswd[0]">
+                    <i class="fa-solid fa-exclamation"></i>&nbsp;{{ msg }}
+                </p>
+            </div>
         </div>
         <div class="mb-3">
             <input [(ngModel)]="registrationRequest.termsAndConditionCheck" type="checkbox" id="termsandconditions" value="termsandconditions">

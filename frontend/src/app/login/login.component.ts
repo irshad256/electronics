@@ -21,6 +21,9 @@ export class LoginComponent implements OnInit {
     email : '',
     password: ''
   }
+  errMsgEmail: Array<string> = [];
+  errMsgPswd: Array<string> = [];
+  errMsg: Array<String> = [];
   
 
   home() {
@@ -28,6 +31,8 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
+    this.errMsgEmail = [];
+    this.errMsgPswd = [];
     this.authService.login({
       body: this.authRequest
     }).subscribe({
@@ -36,7 +41,12 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['home']);
       },
       error: (err) => {
-        console.log(err);
+        if(err.error.errors) {
+          err.error.errors.email ? this.errMsgEmail.push(err.error.errors.email) : this.errMsgEmail = [];
+          err.error.errors.password ? this.errMsgPswd.push(err.error.errors.password) : this.errMsgPswd = [];
+        } else {
+          err.error.businessExceptionDescription ? this.errMsg.push(err.error.businessExceptionDescription) : this.errMsg = [];
+        }
       }
     })
   }
