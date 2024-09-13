@@ -9,11 +9,12 @@ import { AuthService } from '../services/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-
   constructor(
     private router:Router,
     private authService: AuthService
   ) { }
+
+  fullName!: string;
 
   login() {
     this.router.navigate(['login']);
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.fullName = this.authService.getFullName();
   }
 
 }

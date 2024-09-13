@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../services/services';
 import { AuthenticationRequest } from '../services/models';
 import { TokenService } from '../services/token/token.service';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,8 +14,9 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private authService: AuthenticationService,
-    private tokenService: TokenService
+    private authenticationService: AuthenticationService,
+    private tokenService: TokenService,
+    private authService: AuthService
   ) { }
 
   authRequest: AuthenticationRequest = {
@@ -33,12 +35,18 @@ export class LoginComponent implements OnInit {
   login() {
     this.errMsgEmail = [];
     this.errMsgPswd = [];
-    this.authService.login({
+    this.authenticationService.login({
       body: this.authRequest
     }).subscribe({
       next: (response) => {
         this.tokenService.token = response.token as string;
-        this.router.navigate(['home']);
+        const role = this.authService.getUserRole();
+        if (role === 'ADMIN') {
+          this.router.navigate(['/backoffice']);
+        } else {
+          this.router.navigate(['home']);
+        }
+        
       },
       error: (err) => {
         if(err.error.errors) {

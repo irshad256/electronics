@@ -8,6 +8,10 @@ import { RegisterComponent } from './register/register.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
 import { AuthGuard } from './auth/auth.guard';
+import { AdminDashComponent } from './backoffice/admin-dash/admin-dash.component';
+import { RoleGuard } from './auth/role.guard';
+import { ProductsComponent } from './backoffice/products/products.component';
+import { CategoriesComponent } from './backoffice/categories/categories.component';
 
 const routes: Routes = [
   { 
@@ -48,7 +52,25 @@ const routes: Routes = [
         canActivate: [AuthGuard] 
       }
     ]
-  }
+  },
+      {
+        path: 'backoffice',
+        component: AdminDashComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'ADMIN' },
+      },
+      {
+        path: 'products',
+        component: ProductsComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'ADMIN' },
+      },
+      {
+        path: 'categories',
+        component: CategoriesComponent,
+        canActivate: [RoleGuard],
+        data: { expectedRole: 'ADMIN' },
+      }
 ];
 
 @NgModule({
