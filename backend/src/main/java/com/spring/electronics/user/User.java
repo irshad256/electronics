@@ -9,6 +9,8 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import java.security.Principal;
 import java.time.LocalDate;
@@ -81,6 +83,15 @@ public class User implements UserDetails, Principal {
     }
 
     public String getFullName() {
-        return firstName + " " + lastName;
+        StringBuilder fullName = new StringBuilder();
+        if(StringUtils.hasLength(firstName)) {
+            fullName.append(firstName);
+            if(StringUtils.hasLength(lastName)){
+                fullName.append(" ").append(lastName);
+            }
+        } else if(StringUtils.hasLength(lastName)){
+            fullName.append(lastName);
+        }
+        return ObjectUtils.isEmpty(fullName)? null : fullName.toString();
     }
 }

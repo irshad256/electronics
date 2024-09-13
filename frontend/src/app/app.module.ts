@@ -17,6 +17,7 @@ import { ActivateAccountComponent } from './activate-account/activate-account.co
 import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { CodeInputModule } from 'angular-code-input';
 import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
+import { BackofficeModule } from './backoffice/backoffice.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { HttpTokenInterceptor } from './services/interceptor/http-token.intercep
     FormsModule,
     HttpClientModule,
     CodeInputModule,
+    BackofficeModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
