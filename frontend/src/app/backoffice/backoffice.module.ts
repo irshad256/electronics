@@ -4,6 +4,8 @@ import { AdminDashComponent } from './admin-dash/admin-dash.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ProductsComponent } from './products/products.component';
 import { CategoriesComponent } from './categories/categories.component';
+import { RouterModule } from '@angular/router';
+import { BackofficeLayoutComponent } from './layout/layout.component';
 
 
 
@@ -12,10 +14,12 @@ import { CategoriesComponent } from './categories/categories.component';
     AdminDashComponent,
     ManageUserComponent,
     ProductsComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    BackofficeLayoutComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ]
 })
 export class BackofficeModule { }

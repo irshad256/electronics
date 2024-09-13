@@ -1,6 +1,28 @@
-<div class="backoffice-header">
-    <nav class="nav">
-        <img class="logo-img" src="../../assets/SAP_scrn_R.png" (click)="backofficeHome()">
-        <a class="nav-link" href="#">Welcome, {{ fullName }}</a>
-    </nav>
+<div class="p-5 mt-2">
+    <div class="row p-5">
+        <div class="col-md-4">
+            <a [routerLink]="'products'">
+                <div class="card text-center text-primary">
+                    <i class="fa-solid fa-shop"></i>
+                    <div class="fs-4 fw-bold">Products</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a [routerLink]="'categories'">
+                <div class="card text-center text-primary">
+                    <i class="fa-solid fa-clipboard-list"></i>
+                    <div class="fs-4 fw-bold">Categories</div>
+                </div>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a [routerLink]="'users'">
+                <div class="card text-center text-primary">
+                    <i class="fa-solid fa-users"></i>
+                    <div class="fs-4 fw-bold">Users</div>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>

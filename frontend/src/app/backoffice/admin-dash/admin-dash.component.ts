@@ -7,22 +7,6 @@ import { AuthService } from 'src/app/services/auth/auth.service';
   templateUrl: './admin-dash.component.html',
   styleUrls: ['./admin-dash.component.scss']
 })
-export class AdminDashComponent implements OnInit{
-
-  constructor(
-    private router: Router,
-    private authService: AuthService
-  ) { }
-
-  fullName!: string;
- 
-
-  backofficeHome() {
-    return this.router.navigate(['backoffice']);
-  }
-
-  ngOnInit(): void {
-    this.fullName = this.authService.getFullName();
-  }
+export class AdminDashComponent{
 
 }

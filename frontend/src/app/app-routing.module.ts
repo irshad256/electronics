@@ -12,6 +12,8 @@ import { AdminDashComponent } from './backoffice/admin-dash/admin-dash.component
 import { RoleGuard } from './auth/role.guard';
 import { ProductsComponent } from './backoffice/products/products.component';
 import { CategoriesComponent } from './backoffice/categories/categories.component';
+import { BackofficeLayoutComponent } from './backoffice/layout/layout.component';
+import { ManageUserComponent } from './backoffice/manage-user/manage-user.component';
 
 const routes: Routes = [
   { 
@@ -55,21 +57,27 @@ const routes: Routes = [
   },
       {
         path: 'backoffice',
-        component: AdminDashComponent,
+        component: BackofficeLayoutComponent,
         canActivate: [RoleGuard],
         data: { expectedRole: 'ADMIN' },
-      },
-      {
-        path: 'products',
-        component: ProductsComponent,
-        canActivate: [RoleGuard],
-        data: { expectedRole: 'ADMIN' },
-      },
-      {
-        path: 'categories',
-        component: CategoriesComponent,
-        canActivate: [RoleGuard],
-        data: { expectedRole: 'ADMIN' },
+        children:[
+          {
+            path: '',
+            component: AdminDashComponent,
+          },
+          {
+            path: 'products',
+            component: ProductsComponent,
+          },
+          {
+            path: 'categories',
+            component: CategoriesComponent,
+          },
+          {
+            path: 'users',
+            component: ManageUserComponent
+          }
+        ]
       }
 ];
 
