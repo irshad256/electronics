@@ -6,14 +6,16 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { UserDto } from '../../models/user-dto';
+import { ProductDto } from '../../models/product-dto';
 
-export interface GetAllUsers$Params {
+export interface AddProduct$Params {
+      body: ProductDto
 }
 
-export function getAllUsers(http: HttpClient, rootUrl: string, params?: GetAllUsers$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<UserDto>>> {
-  const rb = new RequestBuilder(rootUrl, getAllUsers.PATH, 'get');
+export function addProduct(http: HttpClient, rootUrl: string, params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, addProduct.PATH, 'post');
   if (params) {
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -21,9 +23,9 @@ export function getAllUsers(http: HttpClient, rootUrl: string, params?: GetAllUs
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<UserDto>>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-getAllUsers.PATH = '/backoffice/users';
+addProduct.PATH = '/backoffice/product/add';

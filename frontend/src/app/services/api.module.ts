@@ -4,8 +4,8 @@ import { NgModule, ModuleWithProviders, SkipSelf, Optional } from '@angular/core
 import { HttpClient } from '@angular/common/http';
 import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
-import { AuthenticationService } from './services/authentication.service';
 import { BackofficeService } from './services/backoffice.service';
+import { AuthenticationService } from './services/authentication.service';
 
 /**
  * Module that provides all services and configuration.
@@ -15,8 +15,8 @@ import { BackofficeService } from './services/backoffice.service';
   exports: [],
   declarations: [],
   providers: [
-    AuthenticationService,
     BackofficeService,
+    AuthenticationService,
     ApiConfiguration
   ],
 })

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/services/models';
+import { UserDto } from 'src/app/services/models';
 import { BackofficeService } from 'src/app/services/services';
 
 @Component({
@@ -13,7 +13,7 @@ export class ManageUserComponent implements OnInit {
     private backofficeService: BackofficeService
   ) { }
 
-  users!: Array<User>;
+  users!: Array<UserDto>;
 
   ngOnInit(): void {
     this.backofficeService.getAllUsers().subscribe({

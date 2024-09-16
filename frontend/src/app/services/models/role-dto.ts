@@ -1,6 +1,6 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface Role {
+export interface RoleDto {
   createdDate?: string;
   id?: number;
   lastModifiedDate?: string;
