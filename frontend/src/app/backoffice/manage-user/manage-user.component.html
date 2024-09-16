@@ -9,12 +9,12 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <th scope="row">1</th>
-        <td>Irshad</td>
-        <td>KP</td>
-        <td>irshad256@gmail.com</td>
-        <td>USER</td>
+      <tr *ngFor="let user of users">
+        <th scope="row">{{user.id}}</th>
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.email}}</td>
+        <td *ngFor="let role of user.roles">{{role.name}}</td>
       </tr>
     </tbody>
   </table>

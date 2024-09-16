@@ -19,8 +19,8 @@ public class AdminController {
 
     private final UserRepository userRepository;
 
-    @GetMapping(value = "/users")
-    ResponseEntity<List<User>> getAllUsers(){
+    @GetMapping(value = "/users", produces = "application/json")
+    ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 }
