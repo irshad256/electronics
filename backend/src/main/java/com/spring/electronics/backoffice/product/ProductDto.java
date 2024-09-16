@@ -2,7 +2,6 @@ package com.spring.electronics.backoffice.product;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 

@@ -10,12 +10,9 @@ import com.spring.electronics.user.UserDto;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,9 +66,8 @@ public class AdminController {
     }
 
     @PostMapping(value = "product/add", produces = "application/json")
-    ResponseEntity<String> addProduct(@RequestBody ProductDto productDto,
-                                      @RequestPart("image") MultipartFile file){
-        try {
+    ResponseEntity<String> addProduct(@RequestBody ProductDto productDto) {
+        /*try {
             String uploadDir = "uploads/";
             File uploadDirectory = new File(uploadDir);
             if (!uploadDirectory.exists()) {
@@ -93,7 +89,7 @@ public class AdminController {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add product with exception : " + e.getMessage());
-        }
+        }*/
         return ResponseEntity.ok("Product added");
     }
 

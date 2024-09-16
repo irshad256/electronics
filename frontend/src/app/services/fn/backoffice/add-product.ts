@@ -9,10 +9,7 @@ import { RequestBuilder } from '../../request-builder';
 import { ProductDto } from '../../models/product-dto';
 
 export interface AddProduct$Params {
-      body: {
-'productDto'?: ProductDto;
-'image': Blob;
-}
+      body: ProductDto
 }
 
 export function addProduct(http: HttpClient, rootUrl: string, params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {

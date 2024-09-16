@@ -28,12 +28,10 @@ export class ProductsComponent implements OnInit {
   
   onSubmit() {
     this.backofficeService.addProduct({
-      body: {
-        'productDto': this.product,
-        'image': this.selectedFile as Blob
-        }
+      body: this.product
     }).subscribe();
   }
+
 
   openModel() {
     const model = document.getElementById('add-product-model');

@@ -21,19 +21,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "required": [
-                  "image"
-                ],
-                "type": "object",
-                "properties": {
-                  "productDto": {
-                    "$ref": "#/components/schemas/ProductDto"
-                  },
-                  "image": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                }
+                "$ref": "#/components/schemas/ProductDto"
               }
             }
           },
