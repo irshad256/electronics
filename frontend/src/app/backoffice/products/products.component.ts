@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ProductDto } from 'src/app/services/models';
+import { BackofficeService } from 'src/app/services/services';
 
 @Component({
   selector: 'app-products',
@@ -7,9 +10,49 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private backofficeService: BackofficeService,
+    private router: Router
+  ) { }
+
+  products!: Array<ProductDto>;
+  product: ProductDto = { code: '', name: '', description: '', stock: 0, active: false };
+  selectedFile: File | null = null;
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement; // Type assertion
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+    }
+  }
+  
+  onSubmit() {
+    this.backofficeService.addProduct({
+      body: this.product
+    }).subscribe();
+  }
+
+
+  openModel() {
+    const model = document.getElementById('add-product-model');
+    if(model != null) {
+      model.style.display = 'block';
+    }
+  }
+
+  closeModel() {
+    const model = document.getElementById('add-product-model');
+    if(model != null) {
+      model.style.display = 'none';
+    }
+  }
 
   ngOnInit(): void {
+    this.backofficeService.getAllProduct().subscribe({
+      next: (res) => {
+        this.products = res;
+      }
+    })
   }
 
 }
