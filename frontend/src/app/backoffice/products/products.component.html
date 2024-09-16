@@ -1,1 +1,70 @@
-<p>products works!</p>
+<button type="button" (click)="openModel()" class="btn btn-primary">Add Product</button>
+
+<div class="modal" id="add-product-model" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addProductLabel">New message</h1>
+        <button type="button" class="btn-close" (click)="closeModel()"></button>
+      </div>
+      <div class="modal-body">
+        <form #productForm="ngForm" enctype="multipart/form-data">
+
+            <div class="mb-3">
+                <label for="code" class="form-label">Code</label>
+                <input [(ngModel)]="product.code" type="text" id="code" name="code" placeholder="Enter code">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input  [(ngModel)]="product.name" type="text" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input  [(ngModel)]="product.description" type="text" id="description" name="description" placeholder="Description">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Stock</label>
+                <input  [(ngModel)]="product.stock" type="text" id="stock" name="stock" placeholder="Stock">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Active</label>
+                <input  [(ngModel)]="product.active" value="true" type="radio" name="active" id="active" >
+                <label class="form-label">True</label>
+                <input  [(ngModel)]="product.active" value="false" type="radio" name="active" id="active" >
+                <label class="form-label">False</label>
+            </div>
+            <div class="mb-3">
+                <label for="image">Image:</label>
+                <input type="file" id="image" name="image" (change)="onFileSelected($event)" >
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModel()" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Active</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let product of products">
+        <th scope="row">{{product.code}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.description}}</td>
+        <td>{{product.stock}}</td>
+        <td>{{product.active}}</td>
+        </tr>
+    </tbody>
+</table>
+

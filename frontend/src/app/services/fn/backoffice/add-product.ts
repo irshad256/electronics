@@ -8,12 +8,17 @@ import { RequestBuilder } from '../../request-builder';
 
 import { ProductDto } from '../../models/product-dto';
 
-export interface GetAllProduct$Params {
+export interface AddProduct$Params {
+      body: {
+'productDto'?: ProductDto;
+'image': Blob;
+}
 }
 
-export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
-  const rb = new RequestBuilder(rootUrl, getAllProduct.PATH, 'get');
+export function addProduct(http: HttpClient, rootUrl: string, params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  const rb = new RequestBuilder(rootUrl, addProduct.PATH, 'post');
   if (params) {
+    rb.body(params.body, 'application/json');
   }
 
   return http.request(
@@ -21,9 +26,9 @@ export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAll
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<ProductDto>>;
+      return r as StrictHttpResponse<string>;
     })
   );
 }
 
-getAllProduct.PATH = '/backoffice/products';
+addProduct.PATH = '/backoffice/product/add';

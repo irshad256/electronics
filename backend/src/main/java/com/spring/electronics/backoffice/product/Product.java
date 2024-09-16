@@ -39,4 +39,9 @@ public class Product {
     private LocalDateTime lastModifiedDate;
 
     private boolean active;
+
+    private String category;
+
+    private String imagePath;
+
 }
