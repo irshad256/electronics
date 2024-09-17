@@ -3,6 +3,7 @@ package com.spring.electronics.backoffice;
 import com.spring.electronics.backoffice.product.Product;
 import com.spring.electronics.backoffice.product.ProductDto;
 import com.spring.electronics.backoffice.product.ProductRepository;
+import com.spring.electronics.file.StorageService;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleDto;
 import com.spring.electronics.user.User;
@@ -10,8 +11,11 @@ import com.spring.electronics.user.UserDto;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,8 @@ public class AdminController {
     private final UserRepository userRepository;
 
     private final ProductRepository productRepository;
+
+    private final StorageService storageService;
 
     @GetMapping(value = "/users", produces = "application/json")
     ResponseEntity<List<UserDto>> getAllUsers() {
@@ -60,22 +66,18 @@ public class AdminController {
                         .code(product.getCode())
                         .stock(product.getStock())
                         .active(product.isActive())
+                        .imagePath(product.getImagePath())
                         .build()
         ));
         return ResponseEntity.ok(productsDto);
     }
 
-    @PostMapping(value = "product/add", produces = "application/json")
-    ResponseEntity<String> addProduct(@RequestBody ProductDto productDto) {
-        /*try {
-            String uploadDir = "uploads/";
-            File uploadDirectory = new File(uploadDir);
-            if (!uploadDirectory.exists()) {
-                uploadDirectory.mkdirs();
-            }
+    @PostMapping(value = "product/add", consumes = {MediaType.MULTIPART_FORM_DATA_VALUE}, produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<String> addProduct(@ModelAttribute ProductDto productDto,
+                                      @RequestPart("file") MultipartFile file) {
+        try {
+            String filePath = storageService.store(file);
 
-            String filePath = uploadDir + file.getOriginalFilename();
-            file.transferTo(new File(filePath));
             Product product = Product.builder()
                     .code(productDto.getCode())
                     .name(productDto.getName())
@@ -85,11 +87,11 @@ public class AdminController {
                     .imagePath(filePath)
                     .build();
             productRepository.save(product);
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Failed to add product with exception : " + e.getMessage());
-        }*/
+        }
         return ResponseEntity.ok("Product added");
     }
 

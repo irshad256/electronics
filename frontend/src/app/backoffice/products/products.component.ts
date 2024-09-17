@@ -17,7 +17,7 @@ export class ProductsComponent implements OnInit {
 
   products!: Array<ProductDto>;
   product: ProductDto = { code: '', name: '', description: '', stock: 0, active: false };
-  selectedFile: File | null = null;
+  selectedFile!: Blob;
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement; // Type assertion
@@ -28,7 +28,10 @@ export class ProductsComponent implements OnInit {
   
   onSubmit() {
     this.backofficeService.addProduct({
-      body: this.product
+      body: {
+        productDto:this.product,
+        file:this.selectedFile
+      }
     }).subscribe();
   }
 

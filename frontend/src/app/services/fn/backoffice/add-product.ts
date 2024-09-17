@@ -9,13 +9,16 @@ import { RequestBuilder } from '../../request-builder';
 import { ProductDto } from '../../models/product-dto';
 
 export interface AddProduct$Params {
-      body: ProductDto
+      body?: {
+'productDto'?: ProductDto;
+'file': Blob;
+}
 }
 
-export function addProduct(http: HttpClient, rootUrl: string, params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+export function addProduct(http: HttpClient, rootUrl: string, params?: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
   const rb = new RequestBuilder(rootUrl, addProduct.PATH, 'post');
   if (params) {
-    rb.body(params.body, 'application/json');
+    rb.body(params.body, 'multipart/form-data');
   }
 
   return http.request(

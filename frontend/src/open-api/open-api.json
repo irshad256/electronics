@@ -19,13 +19,24 @@
         "operationId": "addProduct",
         "requestBody": {
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
-                "$ref": "#/components/schemas/ProductDto"
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "productDto": {
+                    "$ref": "#/components/schemas/ProductDto"
+                  },
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
               }
             }
-          },
-          "required": true
+          }
         },
         "responses": {
           "200": {

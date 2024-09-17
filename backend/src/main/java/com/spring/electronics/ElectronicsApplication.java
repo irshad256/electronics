@@ -1,5 +1,7 @@
 package com.spring.electronics;
 
+import com.spring.electronics.file.StorageProperties;
+import com.spring.electronics.file.StorageService;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleRepository;
 import com.spring.electronics.user.User;
@@ -7,6 +9,7 @@ import com.spring.electronics.user.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +19,7 @@ import java.util.Optional;
 
 @SpringBootApplication
 @EnableJpaAuditing
+@EnableConfigurationProperties(StorageProperties.class)
 public class ElectronicsApplication {
 
     public static void main(String[] args) {
@@ -53,5 +57,13 @@ public class ElectronicsApplication {
             }
         };
     }
+
+    @Bean
+    CommandLineRunner init(StorageService storageService) {
+        return (args) -> {
+            storageService.init();
+        };
+    }
+
 
 }

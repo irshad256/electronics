@@ -31,9 +31,9 @@ export class BackofficeService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `addProduct()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  addProduct$Response(params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  addProduct$Response(params?: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
     return addProduct(this.http, this.rootUrl, params, context);
   }
 
@@ -41,9 +41,9 @@ export class BackofficeService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `addProduct$Response()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  addProduct(params: AddProduct$Params, context?: HttpContext): Observable<string> {
+  addProduct(params?: AddProduct$Params, context?: HttpContext): Observable<string> {
     return this.addProduct$Response(params, context).pipe(
       map((r: StrictHttpResponse<string>): string => r.body)
     );
