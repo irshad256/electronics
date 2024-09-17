@@ -1,9 +1,11 @@
 package com.spring.electronics.backoffice.product;
 
+import com.spring.electronics.images.ImageDto;
 import lombok.Builder;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Builder
@@ -28,5 +30,5 @@ public class ProductDto {
 
     private String category;
 
-    private String imagePath;
+    private List<ImageDto> imagesDto;
 }
