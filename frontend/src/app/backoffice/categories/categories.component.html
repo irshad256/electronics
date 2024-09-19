@@ -1,1 +1,56 @@
-<p>categories works!</p>
+<button type="button" (click)="openModel()" class="btn btn-primary">Add category</button>
+
+<div class="modal" id="add-category-model" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="addCategoryLabel">Add category</h1>
+        <button type="button" class="btn-close" (click)="closeModel()"></button>
+      </div>
+      <div class="modal-body">
+        <div class="error" *ngIf="error.length">
+            {{error}}
+        </div>
+        <form #categoryForm="ngForm" >
+
+            <div class="mb-3">
+                <label class="form-label">Code</label>
+                <input [(ngModel)]="category.code" type="text" id="code" name="code" placeholder="Code">
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input [(ngModel)]="category.name" type="text" id="name" name="name" placeholder="Name">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Description</label>
+                <input [(ngModel)]="category.description" type="text" id="description" name="description" placeholder="Description">
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="closeModel()" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" (click)="onSubmit()">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">Code</th>
+        <th scope="col">Name</th>
+        <th scope="col">Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let category of categories">
+            <td>{{category.code}}</td>
+            <td>{{category.name}}</td>
+            <td>{{category.description}}</td>
+        </tr>
+    </tbody>
+</table>
+

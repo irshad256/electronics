@@ -6,13 +6,13 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Product } from '../../models/product';
+import { Category } from '../../models/category';
 
-export interface GetAllProduct$Params {
+export interface GetAllCategories$Params {
 }
 
-export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Product>>> {
-  const rb = new RequestBuilder(rootUrl, getAllProduct.PATH, 'get');
+export function getAllCategories(http: HttpClient, rootUrl: string, params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
+  const rb = new RequestBuilder(rootUrl, getAllCategories.PATH, 'get');
   if (params) {
   }
 
@@ -21,9 +21,9 @@ export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAll
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Product>>;
+      return r as StrictHttpResponse<Array<Category>>;
     })
   );
 }
 
-getAllProduct.PATH = '/backoffice/products';
+getAllCategories.PATH = '/backoffice/categories';

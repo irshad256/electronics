@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductDto } from 'src/app/services/models';
+import { Category, Product, ProductDto } from 'src/app/services/models';
 import { BackofficeService } from 'src/app/services/services';
 
 @Component({
@@ -15,9 +15,12 @@ export class ProductsComponent implements OnInit {
     private router: Router
   ) { }
 
-  products!: Array<ProductDto>;
-  product: ProductDto = { code: '', name: '', description: '', stock: 0, active: false };
-  selectedFile: File | null = null;
+  products!: Array<Product>;
+  selectedFile!: File;
+  product: ProductDto = { code: '', name: '', description: '', stock: 0, active: false, price: 0 };
+  categories!: Array<Category>;
+  categoryCode: string = '';
+  error: string = '';
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement; // Type assertion
@@ -27,9 +30,23 @@ export class ProductsComponent implements OnInit {
   }
   
   onSubmit() {
-    this.backofficeService.addProduct({
-      body: this.product
-    }).subscribe();
+    let paylod = {
+      body:{
+        productDto: this.product,
+        image:this.selectedFile
+      }
+    }
+    console.log(paylod)
+    this.backofficeService.addProduct(paylod).subscribe({
+      next: (res) => {
+        console.log(res);
+        this.closeModel();
+        location.reload();
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    })
   }
 
 
@@ -51,6 +68,18 @@ export class ProductsComponent implements OnInit {
     this.backofficeService.getAllProduct().subscribe({
       next: (res) => {
         this.products = res;
+      },
+      error: (err) => {
+        console.log(err);
+      }
+    });
+    this.backofficeService.getAllCategories().subscribe({
+      next: (res) => {
+        this.categories = res;
+      },
+      error: (err) => {
+        console.log(err);
+        this.error = "Something went wrong!!!";
       }
     })
   }

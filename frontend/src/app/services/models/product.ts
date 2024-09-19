@@ -1,10 +1,13 @@
 /* tslint:disable */
 /* eslint-disable */
-export interface ProductDto {
+export interface Product {
   active?: boolean;
-  categoryCode?: string;
   code?: string;
+  createdDate?: string;
   description?: string;
+  id?: number;
+  image?: string;
+  lastModifiedDate?: string;
   name?: string;
   price?: number;
   stock?: number;
