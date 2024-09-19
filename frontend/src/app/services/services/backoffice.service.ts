@@ -11,11 +11,16 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { addProduct } from '../fn/backoffice/add-product';
 import { AddProduct$Params } from '../fn/backoffice/add-product';
+import { Category } from '../models/category';
+import { createCategory } from '../fn/backoffice/create-category';
+import { CreateCategory$Params } from '../fn/backoffice/create-category';
+import { getAllCategories } from '../fn/backoffice/get-all-categories';
+import { GetAllCategories$Params } from '../fn/backoffice/get-all-categories';
 import { getAllProduct } from '../fn/backoffice/get-all-product';
 import { GetAllProduct$Params } from '../fn/backoffice/get-all-product';
 import { getAllUsers } from '../fn/backoffice/get-all-users';
 import { GetAllUsers$Params } from '../fn/backoffice/get-all-users';
-import { ProductDto } from '../models/product-dto';
+import { Product } from '../models/product';
 import { UserDto } from '../models/user-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -31,9 +36,9 @@ export class BackofficeService extends BaseService {
    * This method provides access to the full `HttpResponse`, allowing access to response headers.
    * To access only the response body, use `addProduct()` instead.
    *
-   * This method sends `application/json` and handles request body of type `application/json`.
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
    */
-  addProduct$Response(params: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<string>> {
+  addProduct$Response(params?: AddProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Product>> {
     return addProduct(this.http, this.rootUrl, params, context);
   }
 
@@ -41,11 +46,36 @@ export class BackofficeService extends BaseService {
    * This method provides access only to the response body.
    * To access the full response (for headers, for example), `addProduct$Response()` instead.
    *
+   * This method sends `multipart/form-data` and handles request body of type `multipart/form-data`.
+   */
+  addProduct(params?: AddProduct$Params, context?: HttpContext): Observable<Product> {
+    return this.addProduct$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Product>): Product => r.body)
+    );
+  }
+
+  /** Path part for operation `createCategory()` */
+  static readonly CreateCategoryPath = '/backoffice/category/add';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `createCategory()` instead.
+   *
    * This method sends `application/json` and handles request body of type `application/json`.
    */
-  addProduct(params: AddProduct$Params, context?: HttpContext): Observable<string> {
-    return this.addProduct$Response(params, context).pipe(
-      map((r: StrictHttpResponse<string>): string => r.body)
+  createCategory$Response(params: CreateCategory$Params, context?: HttpContext): Observable<StrictHttpResponse<Category>> {
+    return createCategory(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `createCategory$Response()` instead.
+   *
+   * This method sends `application/json` and handles request body of type `application/json`.
+   */
+  createCategory(params: CreateCategory$Params, context?: HttpContext): Observable<Category> {
+    return this.createCategory$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Category>): Category => r.body)
     );
   }
 
@@ -83,7 +113,7 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllProduct$Response(params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
+  getAllProduct$Response(params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Product>>> {
     return getAllProduct(this.http, this.rootUrl, params, context);
   }
 
@@ -93,9 +123,34 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllProduct(params?: GetAllProduct$Params, context?: HttpContext): Observable<Array<ProductDto>> {
+  getAllProduct(params?: GetAllProduct$Params, context?: HttpContext): Observable<Array<Product>> {
     return this.getAllProduct$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<ProductDto>>): Array<ProductDto> => r.body)
+      map((r: StrictHttpResponse<Array<Product>>): Array<Product> => r.body)
+    );
+  }
+
+  /** Path part for operation `getAllCategories()` */
+  static readonly GetAllCategoriesPath = '/backoffice/categories';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getAllCategories()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllCategories$Response(params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
+    return getAllCategories(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getAllCategories$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getAllCategories(params?: GetAllCategories$Params, context?: HttpContext): Observable<Array<Category>> {
+    return this.getAllCategories$Response(params, context).pipe(
+      map((r: StrictHttpResponse<Array<Category>>): Array<Category> => r.body)
     );
   }
 

@@ -1,8 +1,11 @@
 package com.spring.electronics.backoffice;
 
-import com.spring.electronics.backoffice.product.Product;
-import com.spring.electronics.backoffice.product.ProductDto;
-import com.spring.electronics.backoffice.product.ProductRepository;
+import com.spring.electronics.category.Category;
+import com.spring.electronics.category.CategoryDto;
+import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.product.Product;
+import com.spring.electronics.product.ProductDto;
+import com.spring.electronics.product.ProductRepository;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleDto;
 import com.spring.electronics.user.User;
@@ -10,11 +13,16 @@ import com.spring.electronics.user.UserDto;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/backoffice")
@@ -26,7 +34,9 @@ public class AdminController {
 
     private final ProductRepository productRepository;
 
-    @GetMapping(value = "/users", produces = "application/json")
+    private final CategoryRepository categoryRepository;
+
+    @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
@@ -48,49 +58,50 @@ public class AdminController {
     }
 
 
-    @GetMapping(value = "/products", produces = "application/json")
-    ResponseEntity<List<ProductDto>> getAllProduct() {
-        List<Product> products = productRepository.findAll();
-        List<ProductDto> productsDto = new ArrayList<>();
-        products.forEach(product -> productsDto.add(
-                ProductDto.builder()
-                        .id(product.getId())
-                        .name(product.getName())
-                        .description(product.getDescription())
-                        .code(product.getCode())
-                        .stock(product.getStock())
-                        .active(product.isActive())
-                        .build()
-        ));
-        return ResponseEntity.ok(productsDto);
+    @PostMapping("/category/add")
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
+        Category category = Category.builder()
+                .code(categoryDto.getCode())
+                .name(categoryDto.getName())
+                .description(categoryDto.getDescription())
+                .build();
+        categoryRepository.save(category);
+        return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
-    @PostMapping(value = "product/add", produces = "application/json")
-    ResponseEntity<String> addProduct(@RequestBody ProductDto productDto) {
-        /*try {
-            String uploadDir = "uploads/";
-            File uploadDirectory = new File(uploadDir);
-            if (!uploadDirectory.exists()) {
-                uploadDirectory.mkdirs();
-            }
+    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> categories = categoryRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(categories);
+    }
 
-            String filePath = uploadDir + file.getOriginalFilename();
-            file.transferTo(new File(filePath));
+    @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<List<Product>> getAllProduct() {
+        List<Product> products = productRepository.findAll();
+        return ResponseEntity.status(HttpStatus.OK).body(products);
+    }
+
+    @PostMapping(value = "product/add",
+    consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+    produces = {MediaType.APPLICATION_JSON_VALUE})
+    ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
+                                       @RequestPart("image") MultipartFile image) throws IOException {
+        Optional<Category> category = categoryRepository.findByCode(productDto.getCategoryCode());
+        if (category.isPresent()) {
             Product product = Product.builder()
                     .code(productDto.getCode())
                     .name(productDto.getName())
-                    .stock(productDto.getStock())
-                    .description(productDto.getDescription())
                     .active(productDto.isActive())
-                    .imagePath(filePath)
+                    .image(image.getBytes())
+                    .category(category.get())
+                    .description(productDto.getDescription())
+                    .price(productDto.getPrice())
+                    .stock(productDto.getStock())
                     .build();
             productRepository.save(product);
-        } catch (Exception e){
-            return ResponseEntity
-                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Failed to add product with exception : " + e.getMessage());
-        }*/
-        return ResponseEntity.ok("Product added");
+            return ResponseEntity.ok(product);
+        }
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Product.builder().build());
     }
 
     private List<RoleDto> getRolesDto(User user) {

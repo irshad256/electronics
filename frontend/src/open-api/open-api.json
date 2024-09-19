@@ -19,9 +19,51 @@
         "operationId": "addProduct",
         "requestBody": {
           "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": [
+                  "image",
+                  "productDto"
+                ],
+                "type": "object",
+                "properties": {
+                  "productDto": {
+                    "$ref": "#/components/schemas/ProductDto"
+                  },
+                  "image": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backoffice/category/add": {
+      "post": {
+        "tags": [
+          "Backoffice"
+        ],
+        "operationId": "createCategory",
+        "requestBody": {
+          "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProductDto"
+                "$ref": "#/components/schemas/CategoryDto"
               }
             }
           },
@@ -31,9 +73,9 @@
           "200": {
             "description": "OK",
             "content": {
-              "application/json": {
+              "*/*": {
                 "schema": {
-                  "type": "string"
+                  "$ref": "#/components/schemas/Category"
                 }
               }
             }
@@ -138,7 +180,30 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/ProductDto"
+                    "$ref": "#/components/schemas/Product"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backoffice/categories": {
+      "get": {
+        "tags": [
+          "Backoffice"
+        ],
+        "operationId": "getAllCategories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
                   }
                 }
               }
@@ -176,6 +241,34 @@
       "ProductDto": {
         "type": "object",
         "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "stock": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          },
+          "categoryCode": {
+            "type": "string"
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
           "id": {
             "type": "integer",
             "format": "int64"
@@ -204,10 +297,44 @@
           "active": {
             "type": "boolean"
           },
-          "category": {
+          "image": {
+            "type": "string",
+            "format": "byte"
+          },
+          "price": {
+            "type": "number",
+            "format": "double"
+          }
+        }
+      },
+      "CategoryDto": {
+        "type": "object",
+        "properties": {
+          "code": {
             "type": "string"
           },
-          "imagePath": {
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         }

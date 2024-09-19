@@ -1,4 +1,4 @@
-package com.spring.electronics.backoffice.product;
+package com.spring.electronics.product;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

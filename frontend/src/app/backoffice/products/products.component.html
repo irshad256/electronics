@@ -8,7 +8,7 @@
         <button type="button" class="btn-close" (click)="closeModel()"></button>
       </div>
       <div class="modal-body">
-        <form #productForm="ngForm" >
+        <form #productForm="ngForm" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label for="code" class="form-label">Code</label>
@@ -28,15 +28,21 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Active</label>
-                <input  [(ngModel)]="product.active" value="true" type="radio" name="active" id="active" >
+                <input  [(ngModel)]="product.active" value="true" type="radio" name="active" id="active_true" >
                 <label class="form-label">True</label>
-                <input  [(ngModel)]="product.active" value="false" type="radio" name="active" id="active" >
+                <input  [(ngModel)]="product.active" value="false" type="radio" name="active" id="active_false" >
                 <label class="form-label">False</label>
             </div>
-            <!-- <div class="mb-3">
+            <div class="mb-3">
+                <select [(ngModel)]="product.categoryCode" id="category" name="categoryCode">
+                    <option selected disabled >Select Category</option>
+                    <option *ngFor="let category of categories" value="{{category.code}}">{{category.name}}</option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="image">Image:</label>
                 <input type="file" id="image" name="image" (change)="onFileSelected($event)" >
-            </div> -->
+            </div>
         </form>
       </div>
       <div class="modal-footer">

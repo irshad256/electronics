@@ -1,7 +1,12 @@
-package com.spring.electronics.backoffice.product;
+package com.spring.electronics.product;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.electronics.category.Category;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Size;
 import lombok.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -26,6 +31,7 @@ public class Product {
 
     private String name;
 
+    @Lob
     private String description;
 
     private Long stock;
@@ -40,8 +46,15 @@ public class Product {
 
     private boolean active;
 
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
+    private Category category;
 
-    private String imagePath;
+    @Column(length = 102400)
+    private byte[] image;
+
+    private double price;
 
 }
