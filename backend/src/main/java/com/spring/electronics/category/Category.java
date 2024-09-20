@@ -25,4 +25,12 @@ public class Category {
     @Lob
     private String description;
 
+    public CategoryDto getAllCategoryDto(){
+        return CategoryDto.builder()
+                .code(code)
+                .name(name)
+                .description(description)
+                .build();
+    }
+
 }

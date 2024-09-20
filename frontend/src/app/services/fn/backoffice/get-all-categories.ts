@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Category } from '../../models/category';
+import { CategoryDto } from '../../models/category-dto';
 
 export interface GetAllCategories$Params {
 }
 
-export function getAllCategories(http: HttpClient, rootUrl: string, params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
+export function getAllCategories(http: HttpClient, rootUrl: string, params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CategoryDto>>> {
   const rb = new RequestBuilder(rootUrl, getAllCategories.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function getAllCategories(http: HttpClient, rootUrl: string, params?: Get
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Category>>;
+      return r as StrictHttpResponse<Array<CategoryDto>>;
     })
   );
 }

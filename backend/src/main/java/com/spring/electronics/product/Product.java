@@ -3,7 +3,6 @@ package com.spring.electronics.product;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.electronics.category.Category;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -52,9 +51,21 @@ public class Product {
     @JsonIgnore
     private Category category;
 
-    @Column(length = 102400)
-    private byte[] image;
+    private String imgUrl;
 
     private double price;
+
+    public ProductDto getProductDto() {
+        return ProductDto.builder()
+                .code(code)
+                .name(name)
+                .imgUrl(imgUrl)
+                .price(price)
+                .stock(stock)
+                .description(description)
+                .active(active)
+                .categoryCode(category.getCode())
+                .build();
+    }
 
 }
