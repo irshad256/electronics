@@ -180,7 +180,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Product"
+                    "$ref": "#/components/schemas/ProductDto"
                   }
                 }
               }
@@ -203,7 +203,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Category"
+                    "$ref": "#/components/schemas/CategoryDto"
                   }
                 }
               }
@@ -263,6 +263,9 @@
           },
           "categoryCode": {
             "type": "string"
+          },
+          "imgUrl": {
+            "type": "string"
           }
         }
       },
@@ -297,13 +300,15 @@
           "active": {
             "type": "boolean"
           },
-          "image": {
-            "type": "string",
-            "format": "byte"
+          "imgUrl": {
+            "type": "string"
           },
           "price": {
             "type": "number",
             "format": "double"
+          },
+          "productDto": {
+            "$ref": "#/components/schemas/ProductDto"
           }
         }
       },
@@ -336,6 +341,9 @@
           },
           "description": {
             "type": "string"
+          },
+          "allCategoryDto": {
+            "$ref": "#/components/schemas/CategoryDto"
           }
         }
       },

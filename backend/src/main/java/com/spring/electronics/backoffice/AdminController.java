@@ -3,6 +3,7 @@ package com.spring.electronics.backoffice;
 import com.spring.electronics.category.Category;
 import com.spring.electronics.category.CategoryDto;
 import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.config.FileStorageProperties;
 import com.spring.electronics.product.Product;
 import com.spring.electronics.product.ProductDto;
 import com.spring.electronics.product.ProductRepository;
@@ -16,13 +17,16 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/backoffice")
@@ -35,6 +39,8 @@ public class AdminController {
     private final ProductRepository productRepository;
 
     private final CategoryRepository categoryRepository;
+
+    private final FileStorageProperties fileStorageProperties;
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<UserDto>> getAllUsers() {
@@ -70,20 +76,20 @@ public class AdminController {
     }
 
     @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categories = categoryRepository.findAll();
+    ResponseEntity<List<CategoryDto>> getAllCategories() {
+        List<CategoryDto> categories = categoryRepository.findAll().stream().map(Category::getAllCategoryDto).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<Product>> getAllProduct() {
-        List<Product> products = productRepository.findAll();
+    ResponseEntity<List<ProductDto>> getAllProduct() {
+        List<ProductDto> products = productRepository.findAll().stream().map(Product::getProductDto).collect(Collectors.toList());
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
     @PostMapping(value = "product/add",
-    consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
-    produces = {MediaType.APPLICATION_JSON_VALUE})
+            consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
+            produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
         Optional<Category> category = categoryRepository.findByCode(productDto.getCategoryCode());
@@ -92,12 +98,33 @@ public class AdminController {
                     .code(productDto.getCode())
                     .name(productDto.getName())
                     .active(productDto.isActive())
-                    .image(image.getBytes())
                     .category(category.get())
                     .description(productDto.getDescription())
                     .price(productDto.getPrice())
                     .stock(productDto.getStock())
                     .build();
+
+            if (!ObjectUtils.isEmpty(image)) {
+                // Define the directory path
+                String directoryPath = fileStorageProperties.getUploadDir();
+                File directory = new File(directoryPath);
+
+                // Create the directory if it does not exist
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
+
+                // Save the file to the target directory
+                String fileName = image.getOriginalFilename();
+                File destinationFile = new File(directory, fileName);
+                image.transferTo(destinationFile);
+
+                String imgUrl = "/external-files/" + fileName;
+
+                product.setImgUrl(imgUrl);
+
+            }
+
             productRepository.save(product);
             return ResponseEntity.ok(product);
         }

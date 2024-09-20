@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Category, Product, ProductDto } from 'src/app/services/models';
+import { ApiConfiguration } from 'src/app/services/api-configuration';
+import { Category, ProductDto } from 'src/app/services/models';
 import { BackofficeService } from 'src/app/services/services';
 
 @Component({
@@ -13,14 +14,15 @@ export class ProductsComponent implements OnInit {
   constructor(
     private backofficeService: BackofficeService,
     private router: Router
-  ) { }
+  ) {}
 
-  products!: Array<Product>;
+  products: Array<ProductDto> = [];
   selectedFile!: File;
   product: ProductDto = { code: '', name: '', description: '', stock: 0, active: false, price: 0 };
   categories!: Array<Category>;
   categoryCode: string = '';
   error: string = '';
+  apiConfig: ApiConfiguration = new ApiConfiguration();
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement; // Type assertion

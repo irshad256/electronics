@@ -5,6 +5,7 @@ export interface ProductDto {
   categoryCode?: string;
   code?: string;
   description?: string;
+  imgUrl?: string;
   name?: string;
   price?: number;
   stock?: number;

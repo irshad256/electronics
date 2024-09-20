@@ -12,6 +12,7 @@ import { StrictHttpResponse } from '../strict-http-response';
 import { addProduct } from '../fn/backoffice/add-product';
 import { AddProduct$Params } from '../fn/backoffice/add-product';
 import { Category } from '../models/category';
+import { CategoryDto } from '../models/category-dto';
 import { createCategory } from '../fn/backoffice/create-category';
 import { CreateCategory$Params } from '../fn/backoffice/create-category';
 import { getAllCategories } from '../fn/backoffice/get-all-categories';
@@ -21,6 +22,7 @@ import { GetAllProduct$Params } from '../fn/backoffice/get-all-product';
 import { getAllUsers } from '../fn/backoffice/get-all-users';
 import { GetAllUsers$Params } from '../fn/backoffice/get-all-users';
 import { Product } from '../models/product';
+import { ProductDto } from '../models/product-dto';
 import { UserDto } from '../models/user-dto';
 
 @Injectable({ providedIn: 'root' })
@@ -113,7 +115,7 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllProduct$Response(params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Product>>> {
+  getAllProduct$Response(params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
     return getAllProduct(this.http, this.rootUrl, params, context);
   }
 
@@ -123,9 +125,9 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllProduct(params?: GetAllProduct$Params, context?: HttpContext): Observable<Array<Product>> {
+  getAllProduct(params?: GetAllProduct$Params, context?: HttpContext): Observable<Array<ProductDto>> {
     return this.getAllProduct$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<Product>>): Array<Product> => r.body)
+      map((r: StrictHttpResponse<Array<ProductDto>>): Array<ProductDto> => r.body)
     );
   }
 
@@ -138,7 +140,7 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllCategories$Response(params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Category>>> {
+  getAllCategories$Response(params?: GetAllCategories$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<CategoryDto>>> {
     return getAllCategories(this.http, this.rootUrl, params, context);
   }
 
@@ -148,9 +150,9 @@ export class BackofficeService extends BaseService {
    *
    * This method doesn't expect any request body.
    */
-  getAllCategories(params?: GetAllCategories$Params, context?: HttpContext): Observable<Array<Category>> {
+  getAllCategories(params?: GetAllCategories$Params, context?: HttpContext): Observable<Array<CategoryDto>> {
     return this.getAllCategories$Response(params, context).pipe(
-      map((r: StrictHttpResponse<Array<Category>>): Array<Category> => r.body)
+      map((r: StrictHttpResponse<Array<CategoryDto>>): Array<CategoryDto> => r.body)
     );
   }
 

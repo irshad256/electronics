@@ -6,12 +6,12 @@ import { filter, map } from 'rxjs/operators';
 import { StrictHttpResponse } from '../../strict-http-response';
 import { RequestBuilder } from '../../request-builder';
 
-import { Product } from '../../models/product';
+import { ProductDto } from '../../models/product-dto';
 
 export interface GetAllProduct$Params {
 }
 
-export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<Product>>> {
+export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAllProduct$Params, context?: HttpContext): Observable<StrictHttpResponse<Array<ProductDto>>> {
   const rb = new RequestBuilder(rootUrl, getAllProduct.PATH, 'get');
   if (params) {
   }
@@ -21,7 +21,7 @@ export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAll
   ).pipe(
     filter((r: any): r is HttpResponse<any> => r instanceof HttpResponse),
     map((r: HttpResponse<any>) => {
-      return r as StrictHttpResponse<Array<Product>>;
+      return r as StrictHttpResponse<Array<ProductDto>>;
     })
   );
 }
