@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -31,9 +31,18 @@ public class Category {
 
     @ManyToMany(mappedBy = "categories")
     @JsonIgnore
-    private Collection<Product> products;
+    private Set<Product> products;
 
-    public CategoryDto getAllCategoryDto(){
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "super_categories",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "super_category_id")
+    )
+    @JsonIgnore
+    private Set<Category> superCategories;
+
+    public CategoryDto getAllCategoryDto() {
         return CategoryDto.builder()
                 .code(code)
                 .name(name)

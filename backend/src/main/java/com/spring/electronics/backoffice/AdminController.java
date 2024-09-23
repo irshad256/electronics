@@ -23,11 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @RestController
 @RequestMapping("/backoffice")
@@ -64,13 +60,19 @@ public class AdminController {
         return ResponseEntity.ok(usersDto);
     }
 
-
     @PostMapping("/category/add")
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
+        Set<String> superCategoryCodes = categoryDto.getSuperCategories();
+        Set<Category> superCategories = new HashSet<>();
+        superCategoryCodes.forEach(categoryCode -> {
+            Optional<Category> category = categoryRepository.findByCode(categoryCode);
+            category.ifPresent(superCategories::add);
+        });
         Category category = Category.builder()
                 .code(categoryDto.getCode())
                 .name(categoryDto.getName())
                 .description(categoryDto.getDescription())
+                .superCategories(superCategories)
                 .build();
         categoryRepository.save(category);
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
@@ -93,8 +95,8 @@ public class AdminController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
-        Collection<String> categoryCodes = productDto.getCategoryCodes();
-        Collection<Category> categories = new ArrayList<>();
+        Set<String> categoryCodes = productDto.getCategoryCodes();
+        Set<Category> categories = new HashSet<>();
         categoryCodes.forEach(categoryCode -> {
             Optional<Category> category = categoryRepository.findByCode(categoryCode);
             category.ifPresent(categories::add);
@@ -113,7 +115,7 @@ public class AdminController {
 
             if (!ObjectUtils.isEmpty(image)) {
                 // Define the directory path
-                String directoryPath = fileStorageProperties.getUploadDir();
+                String directoryPath = fileStorageProperties.getUploadDir() + "\\products";
                 File directory = new File(directoryPath);
 
                 // Create the directory if it does not exist
@@ -126,7 +128,7 @@ public class AdminController {
                 File destinationFile = new File(directory, fileName);
                 image.transferTo(destinationFile);
 
-                String imgUrl = "/external-files/" + fileName;
+                String imgUrl = "/external-files/products/" + fileName;
 
                 product.setImgUrl(imgUrl);
 

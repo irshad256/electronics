@@ -262,6 +262,7 @@
             "format": "double"
           },
           "categoryCodes": {
+            "uniqueItems": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -288,12 +289,6 @@
           "description": {
             "type": "string"
           },
-          "products": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Product"
-            }
-          },
           "allCategoryDto": {
             "$ref": "#/components/schemas/CategoryDto"
           }
@@ -310,6 +305,13 @@
           },
           "description": {
             "type": "string"
+          },
+          "superCategories": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
@@ -345,6 +347,7 @@
             "type": "boolean"
           },
           "categories": {
+            "uniqueItems": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Category"

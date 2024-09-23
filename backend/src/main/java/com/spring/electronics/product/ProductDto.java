@@ -3,7 +3,7 @@ package com.spring.electronics.product;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.Collection;
+import java.util.Set;
 
 
 @Builder
@@ -22,7 +22,7 @@ public class ProductDto {
 
     private double price;
 
-    private Collection<String> categoryCodes;
+    private Set<String> categoryCodes;
 
     private String imgUrl;
 }
