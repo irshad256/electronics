@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -77,13 +78,13 @@ public class AdminController {
 
     @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categories = categoryRepository.findAll().stream().map(Category::getAllCategoryDto).collect(Collectors.toList());
+        List<CategoryDto> categories = categoryRepository.findAll().stream().map(Category::getAllCategoryDto).toList();
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 
     @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<ProductDto>> getAllProduct() {
-        List<ProductDto> products = productRepository.findAll().stream().map(Product::getProductDto).collect(Collectors.toList());
+        List<ProductDto> products = productRepository.findAll().stream().map(Product::getProductDto).toList();
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
@@ -92,13 +93,19 @@ public class AdminController {
             produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
-        Optional<Category> category = categoryRepository.findByCode(productDto.getCategoryCode());
-        if (category.isPresent()) {
+        Collection<String> categoryCodes = productDto.getCategoryCodes();
+        Collection<Category> categories = new ArrayList<>();
+        categoryCodes.forEach(categoryCode -> {
+            Optional<Category> category = categoryRepository.findByCode(categoryCode);
+            category.ifPresent(categories::add);
+        });
+
+        if (!ObjectUtils.isEmpty(categories)) {
             Product product = Product.builder()
                     .code(productDto.getCode())
                     .name(productDto.getName())
                     .active(productDto.isActive())
-                    .category(category.get())
+                    .categories(categories)
                     .description(productDto.getDescription())
                     .price(productDto.getPrice())
                     .stock(productDto.getStock())

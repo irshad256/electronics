@@ -11,6 +11,8 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -45,11 +47,13 @@ public class Product {
 
     private boolean active;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "category_id", nullable = false)
-    @OnDelete(action = OnDeleteAction.CASCADE)
-    @JsonIgnore
-    private Category category;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "products_categories",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "category_id")
+    )
+    private Collection<Category> categories;
 
     private String imgUrl;
 
@@ -64,7 +68,7 @@ public class Product {
                 .stock(stock)
                 .description(description)
                 .active(active)
-                .categoryCode(category.getCode())
+                .categoryCodes(categories.stream().map(Category::getCode).toList())
                 .build();
     }
 

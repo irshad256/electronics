@@ -1,10 +1,10 @@
 <button type="button" (click)="openModel()" class="btn btn-primary">Add Product</button>
 
 <div class="modal" id="add-product-model" >
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="addProductLabel">New message</h1>
+        <h1 class="modal-title fs-5" id="addProductLabel">Add Product</h1>
         <button type="button" class="btn-close" (click)="closeModel()"></button>
       </div>
       <div class="modal-body">
@@ -34,7 +34,7 @@
                 <label class="form-label">False</label>
             </div>
             <div class="mb-3">
-                <select [(ngModel)]="product.categoryCode" id="category" name="categoryCode">
+                <select [(ngModel)]="product.categoryCodes" multiple="true" id="category" name="categoryCode">
                     <option selected disabled >Select Category</option>
                     <option *ngFor="let category of categories" value="{{category.code}}">{{category.name}}</option>
                 </select>
