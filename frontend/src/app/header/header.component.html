@@ -25,10 +25,17 @@
     
 </div>
 <div class="category-nav">
-    <div *ngFor="let category of categories">
-        <a (click)="categoryPage(category.code)" class="category-root-entry" *ngIf="!category.superCategories?.length">
-            {{category.code}}
-        </a> 
-    </div> 
+    <span class="nav-item dropdown" *ngFor="let category of categories">
+        <span *ngIf="!category.superCategories?.length" class="dropdown-hover">
+            <span class="nav-link dropdown-toggle category-root-entry">{{ category.name }}</span>
+            <ul class="dropdown-menu">
+                <li>Shop all {{category.name}}</li>
+                <li *ngFor="let subcategory of category.superCategories">
+                    <a class="dropdown-item" href="#">{{ subcategory }}</a>
+                </li>
+            </ul>
+        </span>
+    </span>
 </div>
+
 
