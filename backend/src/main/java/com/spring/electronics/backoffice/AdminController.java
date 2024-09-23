@@ -66,7 +66,15 @@ public class AdminController {
         Set<Category> superCategories = new HashSet<>();
         superCategoryCodes.forEach(categoryCode -> {
             Optional<Category> category = categoryRepository.findByCode(categoryCode);
-            category.ifPresent(superCategories::add);
+            if(category.isPresent()){
+                Category superCategory = category.get();
+                superCategories.add(superCategory);
+                Set<Category> subCategories = new HashSet<>();
+                subCategories = superCategory.getSubCategories();
+                subCategories.add(category.get());
+                superCategory.setSubCategories(subCategories);
+                categoryRepository.save(superCategory);
+            }
         });
         Category category = Category.builder()
                 .code(categoryDto.getCode())

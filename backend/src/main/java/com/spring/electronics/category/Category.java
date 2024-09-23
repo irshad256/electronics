@@ -43,6 +43,15 @@ public class Category {
     @JsonIgnore
     private Set<Category> superCategories;
 
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "sub_categories",
+            joinColumns = @JoinColumn(name = "category_id"),
+            inverseJoinColumns = @JoinColumn(name = "sub_category_id")
+    )
+    @JsonIgnore
+    private Set<Category> subCategories;
+
     public CategoryDto getCategoryDto() {
         Set<String> superCategoryCodes = new HashSet<>();
         superCategories.forEach(category->superCategoryCodes.add(category.getCode()));

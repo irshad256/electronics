@@ -17,4 +17,6 @@ public class CategoryDto {
 
     private Set<String> superCategories;
 
+    private Set<String> subCategories;
+
 }
