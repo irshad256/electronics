@@ -2,7 +2,7 @@
 /* eslint-disable */
 export interface ProductDto {
   active?: boolean;
-  categoryCode?: string;
+  categoryCodes?: Array<string>;
   code?: string;
   description?: string;
   imgUrl?: string;

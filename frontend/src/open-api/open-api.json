@@ -261,10 +261,54 @@
             "type": "number",
             "format": "double"
           },
-          "categoryCode": {
-            "type": "string"
+          "categoryCodes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           },
           "imgUrl": {
+            "type": "string"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int64"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "allCategoryDto": {
+            "$ref": "#/components/schemas/CategoryDto"
+          }
+        }
+      },
+      "CategoryDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
             "type": "string"
           }
         }
@@ -300,6 +344,12 @@
           "active": {
             "type": "boolean"
           },
+          "categories": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Category"
+            }
+          },
           "imgUrl": {
             "type": "string"
           },
@@ -309,41 +359,6 @@
           },
           "productDto": {
             "$ref": "#/components/schemas/ProductDto"
-          }
-        }
-      },
-      "CategoryDto": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          }
-        }
-      },
-      "Category": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int64"
-          },
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "allCategoryDto": {
-            "$ref": "#/components/schemas/CategoryDto"
           }
         }
       },

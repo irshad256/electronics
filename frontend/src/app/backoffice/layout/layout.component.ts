@@ -15,10 +15,22 @@ export class BackofficeLayoutComponent implements OnInit {
   ) { }
 
   fullName!: string;
- 
 
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['home'])
+  }
+
+  isLoggedIn(): boolean {
+     return this.authService.isLoggedIn();
+  }
+ 
   backofficeHome() {
     return this.router.navigate(['backoffice']);
+  }
+
+  storefrontHome() {
+    return this.router.navigate(['home']);
   }
 
   ngOnInit(): void {

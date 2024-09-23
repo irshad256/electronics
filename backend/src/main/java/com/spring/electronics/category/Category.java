@@ -1,8 +1,12 @@
 package com.spring.electronics.category;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.spring.electronics.product.Product;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.util.Collection;
 
 @Entity
 @Getter
@@ -24,6 +28,10 @@ public class Category {
 
     @Lob
     private String description;
+
+    @ManyToMany(mappedBy = "categories")
+    @JsonIgnore
+    private Collection<Product> products;
 
     public CategoryDto getAllCategoryDto(){
         return CategoryDto.builder()
