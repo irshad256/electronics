@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryDto } from 'src/app/services/models';
-import { Category } from 'src/app/services/models/category';
 import { BackofficeService } from 'src/app/services/services';
 
 @Component({
@@ -14,8 +13,8 @@ export class CategoriesComponent implements OnInit {
     private backofficeService: BackofficeService
   ) { }
 
-  categories!: Array<Category>;
-  category: CategoryDto = {name: '', description: '', code: ''};
+  categories!: Array<CategoryDto>;
+  category: CategoryDto = {name: '', description: '', code: '', superCategories:[]};
   error: string = '';
 
   openModel() {

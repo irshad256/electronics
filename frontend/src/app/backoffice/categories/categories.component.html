@@ -26,7 +26,12 @@
                 <label class="form-label">Description</label>
                 <input [(ngModel)]="category.description" type="text" id="description" name="description" placeholder="Description">
             </div>
-
+            <div class="mb-3" *ngIf="categories.length">
+                <select [(ngModel)]="category.superCategories" multiple="true" id="superCategories" name="superCategories">
+                    <option selected disabled >Select Super Categories</option>
+                    <option *ngFor="let category of categories" value="{{category.code}}">{{category.name}}</option>
+                </select>
+            </div>
         </form>
       </div>
       <div class="modal-footer">

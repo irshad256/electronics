@@ -1,17 +1,14 @@
 package com.spring.electronics.product;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.spring.electronics.category.Category;
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
@@ -53,7 +50,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "category_id")
     )
-    private Collection<Category> categories;
+    private Set<Category> categories;
 
     private String imgUrl;
 
@@ -68,7 +65,7 @@ public class Product {
                 .stock(stock)
                 .description(description)
                 .active(active)
-                .categoryCodes(categories.stream().map(Category::getCode).toList())
+                .categoryCodes(categories.stream().map(Category::getCode).collect(Collectors.toSet()))
                 .build();
     }
 

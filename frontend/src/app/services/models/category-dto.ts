@@ -4,4 +4,5 @@ export interface CategoryDto {
   code?: string;
   description?: string;
   name?: string;
+  superCategories?: Array<string>;
 }
