@@ -23,5 +23,12 @@
         <div class="sign-in-register-link" (click)="login()">Sign In / Register</div>
     </ng-template>
     
-    
 </div>
+<div class="category-nav">
+    <div *ngFor="let category of categories">
+        <a (click)="categoryPage(category.code)" class="category-root-entry" *ngIf="!category.superCategories?.length">
+            {{category.code}}
+        </a> 
+    </div> 
+</div>
+

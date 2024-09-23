@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiConfiguration } from 'src/app/services/api-configuration';
 import { Category, ProductDto } from 'src/app/services/models';
-import { BackofficeService } from 'src/app/services/services';
+import { BackofficeService, CategoryService, ProductService } from 'src/app/services/services';
 
 @Component({
   selector: 'app-products',
@@ -13,7 +12,8 @@ export class ProductsComponent implements OnInit {
 
   constructor(
     private backofficeService: BackofficeService,
-    private router: Router
+    private productService: ProductService,
+    private categoryService: CategoryService
   ) {}
 
   products: Array<ProductDto> = [];
@@ -67,7 +67,7 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.backofficeService.getAllProduct().subscribe({
+    this.productService.getAllProduct().subscribe({
       next: (res) => {
         this.products = res;
       },
@@ -75,7 +75,7 @@ export class ProductsComponent implements OnInit {
         console.log(err);
       }
     });
-    this.backofficeService.getAllCategories().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res;
       },

@@ -26,4 +26,4 @@ export function getAllProduct(http: HttpClient, rootUrl: string, params?: GetAll
   );
 }
 
-getAllProduct.PATH = '/backoffice/products';
+getAllProduct.PATH = '/p/';

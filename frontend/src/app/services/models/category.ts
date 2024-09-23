@@ -2,7 +2,7 @@
 /* eslint-disable */
 import { CategoryDto } from '../models/category-dto';
 export interface Category {
-  allCategoryDto?: CategoryDto;
+  categoryDto?: CategoryDto;
   code?: string;
   description?: string;
   id?: number;

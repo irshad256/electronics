@@ -143,33 +143,10 @@
         }
       }
     },
-    "/backoffice/users": {
+    "/p/": {
       "get": {
         "tags": [
-          "Backoffice"
-        ],
-        "operationId": "getAllUsers",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/UserDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/backoffice/products": {
-      "get": {
-        "tags": [
-          "Backoffice"
+          "Product"
         ],
         "operationId": "getAllProduct",
         "responses": {
@@ -189,10 +166,40 @@
         }
       }
     },
-    "/backoffice/categories": {
+    "/c/{code}": {
       "get": {
         "tags": [
-          "Backoffice"
+          "Category"
+        ],
+        "operationId": "getCategory",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/c/": {
+      "get": {
+        "tags": [
+          "Category"
         ],
         "operationId": "getAllCategories",
         "responses": {
@@ -204,6 +211,29 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/CategoryDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/backoffice/users": {
+      "get": {
+        "tags": [
+          "Backoffice"
+        ],
+        "operationId": "getAllUsers",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDto"
                   }
                 }
               }
@@ -289,7 +319,7 @@
           "description": {
             "type": "string"
           },
-          "allCategoryDto": {
+          "categoryDto": {
             "$ref": "#/components/schemas/CategoryDto"
           }
         }

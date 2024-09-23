@@ -26,4 +26,4 @@ export function getAllCategories(http: HttpClient, rootUrl: string, params?: Get
   );
 }
 
-getAllCategories.PATH = '/backoffice/categories';
+getAllCategories.PATH = '/c/';
