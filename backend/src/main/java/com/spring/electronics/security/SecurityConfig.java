@@ -36,7 +36,9 @@ public class SecurityConfig {
                                         "/swagger-ui/**",
                                         "/webjars/**",
                                         "/swagger-ui.html",
-                                        "/external-files/**"
+                                        "/external-files/**",
+                                        "/c/**",
+                                        "/p/**"
                                 ).permitAll()
                                 .requestMatchers("/backoffice/**").hasAuthority("ADMIN")
                                 .anyRequest()

@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ public class Category {
 
     private String name;
 
-    @Lob
+    @Column(length = 1024)
     private String description;
 
     @ManyToMany(mappedBy = "categories")
@@ -42,11 +43,14 @@ public class Category {
     @JsonIgnore
     private Set<Category> superCategories;
 
-    public CategoryDto getAllCategoryDto() {
+    public CategoryDto getCategoryDto() {
+        Set<String> superCategoryCodes = new HashSet<>();
+        superCategories.forEach(category->superCategoryCodes.add(category.getCode()));
         return CategoryDto.builder()
                 .code(code)
                 .name(name)
                 .description(description)
+                .superCategories(superCategoryCodes)
                 .build();
     }
 

@@ -18,6 +18,7 @@ import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common
 import { CodeInputModule } from 'angular-code-input';
 import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 import { BackofficeModule } from './backoffice/backoffice.module';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { BackofficeModule } from './backoffice/backoffice.module';
     ResetPasswordComponent,
     RegisterComponent,
     TermsAndConditionsComponent,
-    ActivateAccountComponent
+    ActivateAccountComponent,
+    CategoryComponent
   ],
   imports: [
     BrowserModule,

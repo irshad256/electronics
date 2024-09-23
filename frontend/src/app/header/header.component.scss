@@ -4,11 +4,19 @@
     justify-content: flex-end;
 }
 
-.header-bottom {
+.header-bottom{
     background-color:#212738;
     padding-top: 15px;
     display: flex;
-    // justify-content: center;
+}
+
+.category-nav {
+    background-color:#212738;
+    padding: 15px;
+    display: flex;
+    color: #ffffff;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .header-top, .header-bottom, a{
@@ -85,4 +93,8 @@
 
 .line-break {
     margin: 1px;
+}
+
+.category-root-entry {
+    margin-right: 20px;
 }

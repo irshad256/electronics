@@ -20,7 +20,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <input  [(ngModel)]="product.description" type="text" id="description" name="description" placeholder="Description">
+                <textarea  [(ngModel)]="product.description" type="text" id="description" name="description" placeholder="Description"></textarea>
             </div>
             <div class="mb-3">
                 <label class="form-label">Stock</label>
@@ -41,7 +41,7 @@
             </div>
             <div class="mb-3">
                 <label for="image">Image:</label>
-                <input type="file" id="image" name="image" (change)="onFileSelected($event)" >
+                <input type="file" id="image" multiple name="image" (change)="onFileSelected($event)" >
             </div>
         </form>
       </div>
@@ -58,7 +58,6 @@
         <tr>
             <th scope="col">Code</th>
             <th scope="col">Name</th>
-            <th scope="col">Description</th>
             <th scope="col">Stock</th>
             <th scope="col">Active</th>
             <th scope="col">Image</th>
@@ -68,7 +67,6 @@
         <tr *ngFor="let product of products">
         <th scope="row">{{product.code}}</th>
         <td>{{product.name}}</td>
-        <td>{{product.description}}</td>
         <td>{{product.stock}}</td>
         <td>{{product.active}}</td>
         <td><img src="{{apiConfig.rootUrl}}{{product.imgUrl}}" class="prod-img"></td>

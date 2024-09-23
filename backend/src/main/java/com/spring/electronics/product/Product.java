@@ -29,7 +29,7 @@ public class Product {
 
     private String name;
 
-    @Lob
+    @Column(length = 1024)
     private String description;
 
     private Long stock;

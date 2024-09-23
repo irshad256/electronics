@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoryDto } from 'src/app/services/models';
-import { BackofficeService } from 'src/app/services/services';
+import { BackofficeService, CategoryService } from 'src/app/services/services';
 
 @Component({
   selector: 'app-categories',
@@ -10,7 +10,8 @@ import { BackofficeService } from 'src/app/services/services';
 export class CategoriesComponent implements OnInit {
 
   constructor(
-    private backofficeService: BackofficeService
+    private backofficeService: BackofficeService,
+    private categoryService: CategoryService
   ) { }
 
   categories!: Array<CategoryDto>;
@@ -51,7 +52,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.backofficeService.getAllCategories().subscribe({
+    this.categoryService.getAllCategories().subscribe({
       next: (res) => {
         this.categories = res;
       },

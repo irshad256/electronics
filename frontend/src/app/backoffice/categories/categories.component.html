@@ -24,7 +24,7 @@
             </div>
             <div class="mb-3">
                 <label class="form-label">Description</label>
-                <input [(ngModel)]="category.description" type="text" id="description" name="description" placeholder="Description">
+                <textarea [(ngModel)]="category.description" type="text" id="description" name="description" placeholder="Description"></textarea>
             </div>
             <div class="mb-3" *ngIf="categories.length">
                 <select [(ngModel)]="category.superCategories" multiple="true" id="superCategories" name="superCategories">
@@ -47,14 +47,12 @@
         <tr>
         <th scope="col">Code</th>
         <th scope="col">Name</th>
-        <th scope="col">Description</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let category of categories">
             <td>{{category.code}}</td>
             <td>{{category.name}}</td>
-            <td>{{category.description}}</td>
         </tr>
     </tbody>
 </table>

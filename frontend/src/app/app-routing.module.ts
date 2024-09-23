@@ -14,6 +14,7 @@ import { ProductsComponent } from './backoffice/products/products.component';
 import { CategoriesComponent } from './backoffice/categories/categories.component';
 import { BackofficeLayoutComponent } from './backoffice/layout/layout.component';
 import { ManageUserComponent } from './backoffice/manage-user/manage-user.component';
+import { CategoryComponent } from './category/category.component';
 
 const routes: Routes = [
   { 
@@ -52,6 +53,11 @@ const routes: Routes = [
         path: 'activate-account',
         component: ActivateAccountComponent,
         canActivate: [AuthGuard] 
+      },
+      {
+        path: 'c/:categoryCode',
+        component: CategoryComponent
+        
       }
     ]
   },

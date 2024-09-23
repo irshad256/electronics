@@ -78,18 +78,6 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
-    @GetMapping(value = "/categories", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categories = categoryRepository.findAll().stream().map(Category::getAllCategoryDto).toList();
-        return ResponseEntity.status(HttpStatus.OK).body(categories);
-    }
-
-    @GetMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<ProductDto>> getAllProduct() {
-        List<ProductDto> products = productRepository.findAll().stream().map(Product::getProductDto).toList();
-        return ResponseEntity.status(HttpStatus.OK).body(products);
-    }
-
     @PostMapping(value = "product/add",
             consumes = {MediaType.MULTIPART_FORM_DATA_VALUE},
             produces = {MediaType.APPLICATION_JSON_VALUE})
