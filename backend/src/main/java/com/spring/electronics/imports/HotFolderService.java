@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +23,19 @@ public class HotFolderService {
 
     private final UserImportService userImportService;
 
+    private final ExecutorService executorService = Executors.newSingleThreadExecutor(); // Use a single thread executor
+
     @PostConstruct
+    public void init() {
+        executorService.submit(() -> {
+            try {
+                monitorHotFolder();
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
     public void monitorHotFolder() throws IOException, InterruptedException {
         WatchService watchService = FileSystems.getDefault().newWatchService();
         Path path = Paths.get(IMPORT_DATA_DIR);
