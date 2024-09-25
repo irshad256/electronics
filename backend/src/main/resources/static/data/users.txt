@@ -1,0 +1,2 @@
+Mr ; Irshad ; KP ; irshad256@gmail.com   ; password ; USER
+   ; admin  ;    ; admin@electronics.com ; password ; ADMIN
