@@ -24,30 +24,32 @@ public class ProductImportService {
     public void importOrUpdateProducts(String csvContent) {
         String[] lines = csvContent.split("\n");
         for (String line : lines) {
-            String[] fields = line.split(";");
-            String code = fields[0].trim();
-            String name = fields[1].trim();
-            boolean active = Boolean.parseBoolean(fields[2].trim());
-            String categoryCodes = fields[3].trim();
-            Set<Category> categories = new HashSet<>();
-            Set<String> superCategoryList = Set.of(categoryCodes.split(","));
-            superCategoryList.forEach(categoryCode -> {
-                categoryRepository.findByCode(categoryCode).ifPresent(categories::add);
-            });
-            String description = fields[4].trim();
-            double price = Double.parseDouble(fields[5].trim());
-            Long stock = Long.valueOf(fields[6].trim());
+            if (!lines[0].equalsIgnoreCase("code")) {
+                String[] fields = line.split(";");
+                String code = fields[0].trim();
+                String name = fields[1].trim();
+                boolean active = Boolean.parseBoolean(fields[2].trim());
+                String categoryCodes = fields[3].trim();
+                Set<Category> categories = new HashSet<>();
+                Set<String> superCategoryList = Set.of(categoryCodes.split(","));
+                superCategoryList.forEach(categoryCode -> {
+                    categoryRepository.findByCode(categoryCode).ifPresent(categories::add);
+                });
+                String description = fields[4].trim();
+                double price = Double.parseDouble(fields[5].trim());
+                Long stock = Long.valueOf(fields[6].trim());
 
-            Product product = Product.builder()
-                    .code(code)
-                    .name(name)
-                    .active(active)
-                    .categories(categories)
-                    .description(description)
-                    .price(price)
-                    .stock(stock)
-                    .build();
-            productRepository.save(product);
+                Product product = Product.builder()
+                        .code(code)
+                        .name(name)
+                        .active(active)
+                        .categories(categories)
+                        .description(description)
+                        .price(price)
+                        .stock(stock)
+                        .build();
+                productRepository.save(product);
+            }
         }
     }
 }

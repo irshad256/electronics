@@ -54,7 +54,7 @@ public class IntegrationConfig {
 
         // Composite filter to watch for CSV files and recent modifications
         CompositeFileListFilter<File> filters = new CompositeFileListFilter<>();
-        filters.addFilter(new SimplePatternFileListFilter("*.txt"));
+        filters.addFilter(new SimplePatternFileListFilter("*.impex"));
         filters.addFilter(new LastModifiedFileListFilter()); // Avoid reprocessing unchanged files
         source.setFilter(filters);
 

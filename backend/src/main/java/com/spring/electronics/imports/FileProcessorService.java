@@ -30,11 +30,11 @@ public class FileProcessorService implements MessageHandler {
         String fileName = file.getName();
 
         try {
-            if (fileName.equalsIgnoreCase("products.txt")) {
+            if (fileName.equalsIgnoreCase("products.impex")) {
                 processProductFile(file);
-            } else if (fileName.equalsIgnoreCase("categories.txt")) {
+            } else if (fileName.equalsIgnoreCase("categories.impex")) {
                 processCategoryFile(file);
-            } else if (fileName.equalsIgnoreCase("users.txt")) {
+            } else if (fileName.equalsIgnoreCase("users.impex")) {
                 processUserFile(file);
             }
         } catch (Exception e) {

@@ -1,3 +1,4 @@
+code                         ; name                         ; description                  ; superCategories
 brands                       ; Brand                        ; Brand                        ;
 canon                        ; Canon                        ; Canon                        ; brands
 sony                         ; Sony                         ; Sony                         ; Brand
@@ -13,3 +14,9 @@ power_supplies               ; Power Supplies               ; Power Supplies    
 rechargeable_batteries       ; Rechargeable Batteries       ; Rechargeable Batteries       ; power_supplies
 power_adapters_and_inverters ; Power Adapters and Inverters ; Power Adapters and Inverters ; power_supplies
 battery_chargers             ; Battery Chargers             ; Battery Chargers             ; power_supplies
+cameras                      ; Cameras                      ; Cameras                      ;
+film_cameras                 ; Film cameras                 ; Film cameras                 ; cameras
+digital_cameras              ; Digital Cameras              ; Digital Cameras              ; cameras
+webcams                      ; Webcams                      ; Webcams                      ; webcams
+digital_compacts             ; Digital Compacts             ; Digital Compacts             ; digital_cameras
+digital_slr                  ; Digital SLR                  ; Digital SLR                  ; digital_slr

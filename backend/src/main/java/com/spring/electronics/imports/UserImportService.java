@@ -28,38 +28,40 @@ public class UserImportService {
         LOG.info("Inside UserService import method");
         String[] lines = csvContent.split("\n");
         for (String line : lines) {
-            String[] fields = line.split(";");
-            String title = fields[0].trim();
-            String firstName = fields[1].trim();
-            String lastName = fields[2].trim();
-            String email = fields[3].trim();
-            String password = fields[4].trim();
-            String userRole = fields[5].trim();
-            String enabled = fields[6].trim();
-            Role role = roleRepository.findByName(userRole).orElseThrow(() -> new IllegalArgumentException("Role not initialized"));
+            if (!lines[0].equalsIgnoreCase("title")) {
+                String[] fields = line.split(";");
+                String title = fields[0].trim();
+                String firstName = fields[1].trim();
+                String lastName = fields[2].trim();
+                String email = fields[3].trim();
+                String password = fields[4].trim();
+                String userRole = fields[5].trim();
+                String enabled = fields[6].trim();
+                Role role = roleRepository.findByName(userRole).orElseThrow(() -> new IllegalArgumentException("Role not initialized"));
 
-            Optional<User> existingUser = userRepository.findByEmail(email);
-            User user;
-            if (existingUser.isPresent()) {
-                user = existingUser.get();
-                user.setTitle(title);
-                user.setFirstName(firstName);
-                user.setLastName(lastName);
-                user.setPassword(passwordEncoder.encode(password));
-                user.setRoles(List.of(role));
-                user.setEnabled(Boolean.parseBoolean(enabled));
-            } else {
-                user = User.builder()
-                        .title(title)
-                        .firstName(firstName)
-                        .lastName(lastName)
-                        .email(email)
-                        .password(passwordEncoder.encode(password))
-                        .roles(List.of(role))
-                        .enabled(Boolean.parseBoolean(enabled))
-                        .build();
+                Optional<User> existingUser = userRepository.findByEmail(email);
+                User user;
+                if (existingUser.isPresent()) {
+                    user = existingUser.get();
+                    user.setTitle(title);
+                    user.setFirstName(firstName);
+                    user.setLastName(lastName);
+                    user.setPassword(passwordEncoder.encode(password));
+                    user.setRoles(List.of(role));
+                    user.setEnabled(Boolean.parseBoolean(enabled));
+                } else {
+                    user = User.builder()
+                            .title(title)
+                            .firstName(firstName)
+                            .lastName(lastName)
+                            .email(email)
+                            .password(passwordEncoder.encode(password))
+                            .roles(List.of(role))
+                            .enabled(Boolean.parseBoolean(enabled))
+                            .build();
+                }
+                userRepository.save(user);
             }
-            userRepository.save(user);
         }
     }
 }
