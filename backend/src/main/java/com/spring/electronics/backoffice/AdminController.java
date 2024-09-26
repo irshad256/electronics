@@ -3,6 +3,7 @@ package com.spring.electronics.backoffice;
 import com.spring.electronics.category.Category;
 import com.spring.electronics.category.CategoryDto;
 import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.category.CategoryService;
 import com.spring.electronics.config.FileStorageProperties;
 import com.spring.electronics.product.Product;
 import com.spring.electronics.product.ProductDto;
@@ -39,6 +40,8 @@ public class AdminController {
 
     private final FileStorageProperties fileStorageProperties;
 
+    private final CategoryService categoryService;
+
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<UserDto>> getAllUsers() {
         List<User> users = userRepository.findAll();
@@ -62,27 +65,7 @@ public class AdminController {
 
     @PostMapping("/category/add")
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
-        Set<String> superCategoryCodes = categoryDto.getSuperCategories();
-        Set<Category> superCategories = new HashSet<>();
-        superCategoryCodes.forEach(categoryCode -> {
-            Optional<Category> category = categoryRepository.findByCode(categoryCode);
-            if(category.isPresent()){
-                Category superCategory = category.get();
-                superCategories.add(superCategory);
-                Set<Category> subCategories = new HashSet<>();
-                subCategories = superCategory.getSubCategories();
-                subCategories.add(category.get());
-                superCategory.setSubCategories(subCategories);
-                categoryRepository.save(superCategory);
-            }
-        });
-        Category category = Category.builder()
-                .code(categoryDto.getCode())
-                .name(categoryDto.getName())
-                .description(categoryDto.getDescription())
-                .superCategories(superCategories)
-                .build();
-        categoryRepository.save(category);
+        Category category = categoryService.createCategory(categoryDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(category);
     }
 
