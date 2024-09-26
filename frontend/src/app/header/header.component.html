@@ -29,9 +29,9 @@
         <span *ngIf="!category.superCategories?.length" class="dropdown-hover">
             <span class="nav-link dropdown-toggle category-root-entry">{{ category.name }}</span>
             <ul class="dropdown-menu">
-                <li>Shop all {{category.name}}</li>
-                <li *ngFor="let subcategory of category.superCategories">
-                    <a class="dropdown-item" href="#">{{ subcategory }}</a>
+                <li *ngIf="">Shop all {{category.name}}</li>
+                <li *ngFor="let subcategory of category.subCategories">
+                    <a class="dropdown-item" (click)="categoryPage(subcategory)">{{ subcategory }}</a>
                 </li>
             </ul>
         </span>

@@ -342,6 +342,13 @@
             "items": {
               "type": "string"
             }
+          },
+          "subCategories": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         }
       },
