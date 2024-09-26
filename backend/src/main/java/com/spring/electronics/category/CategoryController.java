@@ -18,16 +18,16 @@ import java.util.List;
 @RequestMapping("/c")
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     @GetMapping(value = "/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CategoryDto getCategory(@PathVariable String code) {
-        return categoryRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Category Not found")).getCategoryDto();
+        return categoryService.getCategory(code);
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categories = categoryRepository.findAll().stream().map(Category::getCategoryDto).toList();
+        List<CategoryDto> categories = categoryService.getAllCategories();
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 }

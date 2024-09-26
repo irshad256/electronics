@@ -19,6 +19,7 @@ export class HeaderComponent implements OnInit {
 
   fullName!: string;
   categories: Array<CategoryDto> = []
+  isOpened: boolean = false;
 
   login() {
     this.router.navigate(['login']);

@@ -1,0 +1,3 @@
+title ; firstName ; lastName ; email                 ; password ; role  ; active
+Mr    ; Irshad    ; KP       ; irshad256@gmail.com   ; password ; USER  ; true
+      ; admin     ;          ; admin@electronics.com ; password ; ADMIN ; true
