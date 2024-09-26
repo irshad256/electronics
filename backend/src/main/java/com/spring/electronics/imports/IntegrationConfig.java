@@ -19,14 +19,11 @@ import org.springframework.scheduling.support.PeriodicTrigger;
 
 import java.io.File;
 import java.time.Duration;
-import java.util.logging.Logger;
 
 @Configuration
 @RequiredArgsConstructor
 @EnableIntegration
 public class IntegrationConfig {
-
-    private static final Logger LOG = Logger.getLogger(IntegrationConfig.class.getSimpleName());
 
     @Value("${file.data.upload-dir}")
     private String IMPORT_DATA_DIR;
@@ -41,14 +38,13 @@ public class IntegrationConfig {
     @Bean(name = PollerMetadata.DEFAULT_POLLER)
     public PollerMetadata poller() {
         PollerMetadata poller = new PollerMetadata();
-        poller.setTrigger(new PeriodicTrigger(Duration.ofSeconds(30)));  // Poll every 5 seconds
+        poller.setTrigger(new PeriodicTrigger(Duration.ofSeconds(900)));
         return poller;
     }
 
     // Define a message source (file reader) that monitors the hot folder
     @Bean
     public FileReadingMessageSource fileReadingMessageSource() {
-        LOG.info("Inside IntegrationConfig method fileReadingMessageSource()");
         FileReadingMessageSource source = new FileReadingMessageSource();
         source.setDirectory(new File(IMPORT_DATA_DIR));
 

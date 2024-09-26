@@ -9,13 +9,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
 public class ProductImportService {
 
-    private static final Logger LOG = Logger.getLogger(ProductImportService.class.getSimpleName());
 
     private final ProductRepository productRepository;
 
@@ -24,7 +22,7 @@ public class ProductImportService {
     public void importOrUpdateProducts(String csvContent) {
         String[] lines = csvContent.split("\n");
         for (String line : lines) {
-            if (!lines[0].equalsIgnoreCase("code")) {
+            if (!line.startsWith("code")) {
                 String[] fields = line.split(";");
                 String code = fields[0].trim();
                 String name = fields[1].trim();
@@ -35,9 +33,9 @@ public class ProductImportService {
                 superCategoryList.forEach(categoryCode -> {
                     categoryRepository.findByCode(categoryCode).ifPresent(categories::add);
                 });
-                String description = fields[4].trim();
-                double price = Double.parseDouble(fields[5].trim());
-                Long stock = Long.valueOf(fields[6].trim());
+                double price = Double.parseDouble(fields[4].trim());
+                Long stock = Long.valueOf(fields[5].trim());
+                String description = fields[6].trim();
 
                 Product product = Product.builder()
                         .code(code)

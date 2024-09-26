@@ -1,15 +1,15 @@
 code                         ; name                         ; description                  ; superCategories
 brands                       ; Brand                        ; Brand                        ;
 canon                        ; Canon                        ; Canon                        ; brands
-sony                         ; Sony                         ; Sony                         ; Brand
-kodak                        ; Kodak                        ; Kodak                        ; Brand
-samsung                      ; Samsung                      ; Samsung                      ; Brand
-toshiba                      ; Toshiba                      ; Toshiba                      ; Brand
-fujifilm                     ; Fujifilm                     ; Fujifilm                     ; Brand
-kingston                     ; Kingston                     ; Kingston                     ; Brand
-icidu                        ; Icidu                        ; Icidu                        ; Brand
-tdk                          ; TDK                          ; TDK                          ; Brand
-sweex                        ; Sweex                        ; Sweex                        ; Brand
+sony                         ; Sony                         ; Sony                         ; brands
+kodak                        ; Kodak                        ; Kodak                        ; brands
+samsung                      ; Samsung                      ; Samsung                      ; brands
+toshiba                      ; Toshiba                      ; Toshiba                      ; brands
+fujifilm                     ; Fujifilm                     ; Fujifilm                     ; brands
+kingston                     ; Kingston                     ; Kingston                     ; brands
+icidu                        ; Icidu                        ; Icidu                        ; brands
+tdk                          ; TDK                          ; TDK                          ; brands
+sweex                        ; Sweex                        ; Sweex                        ; brands
 power_supplies               ; Power Supplies               ; Power Supplies               ;
 rechargeable_batteries       ; Rechargeable Batteries       ; Rechargeable Batteries       ; power_supplies
 power_adapters_and_inverters ; Power Adapters and Inverters ; Power Adapters and Inverters ; power_supplies

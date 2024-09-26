@@ -1,55 +1,43 @@
 package com.spring.electronics.imports;
 
 import com.spring.electronics.category.Category;
+import com.spring.electronics.category.CategoryDto;
 import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.category.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
-import java.util.logging.Logger;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryImportService {
 
-    private static final Logger LOG = Logger.getLogger(CategoryImportService.class.getSimpleName());
     private final CategoryRepository categoryRepository;
 
+    private final CategoryService categoryService;
+
+    @Transactional
     public void importOrUpdateCategories(String csvContent) {
         String[] lines = csvContent.split("\n");
         for (String line : lines) {
-            if (!lines[0].equalsIgnoreCase("code")) {
+            if (!line.startsWith("code")) {
                 String[] fields = line.split(";");
-                String code = fields[0].trim();
-                String name = fields[1].trim();
-                String description = fields[2].trim();
-                String superCategoryCodes = fields[3].trim();
-                Set<Category> superCategories = new HashSet<>();
-                Set<String> superCategoryList = Set.of(superCategoryCodes.split(","));
-                superCategoryList.forEach(categoryCode -> {
-                    if (!categoryCode.equals(code)) {
-                        categoryRepository.findByCode(categoryCode).ifPresent(superCategories::add);
-                    }
-                });
+                CategoryDto categoryDto = CategoryDto.builder()
+                        .code(fields[0].trim())
+                        .name(fields[1].trim())
+                        .description(fields[2].trim())
+                        .superCategories(Set.of(fields[3].trim().split(",")))
+                        .build();
 
-                Category category;
-                Optional<Category> existingCategory = categoryRepository.findByCode(code);
+                Optional<Category> existingCategory = categoryRepository.findByCode(categoryDto.getCode());
                 if (existingCategory.isPresent()) {
-                    category = existingCategory.get();
-                    category.setName(name);
-                    category.setDescription(description);
-                    category.setSuperCategories(superCategories);
+                    categoryService.updateCategory(existingCategory.get(), categoryDto);
                 } else {
-                    category = Category.builder()
-                            .code(code)
-                            .name(name)
-                            .description(description)
-                            .superCategories(superCategories)
-                            .build();
+                    categoryService.createCategory(categoryDto);
                 }
-                categoryRepository.save(category);
             }
         }
     }

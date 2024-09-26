@@ -28,7 +28,7 @@ public class UserImportService {
         LOG.info("Inside UserService import method");
         String[] lines = csvContent.split("\n");
         for (String line : lines) {
-            if (!lines[0].equalsIgnoreCase("title")) {
+            if (!line.startsWith("title")) {
                 String[] fields = line.split(";");
                 String title = fields[0].trim();
                 String firstName = fields[1].trim();

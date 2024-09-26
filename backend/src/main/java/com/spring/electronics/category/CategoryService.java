@@ -1,6 +1,7 @@
 package com.spring.electronics.category;
 
 import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
 
@@ -26,4 +27,37 @@ public interface CategoryService {
      * @return CategoryDto
      */
     CategoryDto getCategory(String code);
+
+    /**
+     * Method to get Set of categories
+     *
+     * @param categoryCodes Set of category codes
+     * @return Set of Category
+     */
+    Set<Category> getCategoriesForCode(Set<String> categoryCodes);
+
+
+    /**
+     * Method to set subCategories for a given category.
+     *
+     * @param category    Category to which subCategory is updated
+     * @param subCategory sub category
+     */
+    void setSubcategoryForCategory(Category category, Category subCategory);
+
+    /**
+     * Method to set the current category as a subcategory to its superCategory
+     *
+     * @param category Category
+     */
+    void updateSubCategoryForSuperCategory(Category category);
+
+    /**
+     * Method to update the existing category
+     *
+     * @param category    Existing Category
+     * @param categoryDto Updated category values
+     */
+    void updateCategory(Category category, CategoryDto categoryDto);
+
 }
