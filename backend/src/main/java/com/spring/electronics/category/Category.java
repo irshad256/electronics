@@ -55,11 +55,14 @@ public class Category {
     public CategoryDto getCategoryDto() {
         Set<String> superCategoryCodes = new HashSet<>();
         superCategories.forEach(category->superCategoryCodes.add(category.getCode()));
+        Set<String> subCategoryCodes = new HashSet<>();
+        subCategories.forEach(category->subCategoryCodes.add(category.getCode()));
         return CategoryDto.builder()
                 .code(code)
                 .name(name)
                 .description(description)
                 .superCategories(superCategoryCodes)
+                .subCategories(subCategoryCodes)
                 .build();
     }
 
