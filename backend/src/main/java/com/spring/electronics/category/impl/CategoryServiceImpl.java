@@ -1,22 +1,23 @@
 package com.spring.electronics.category.impl;
 
-import com.spring.electronics.category.Category;
-import com.spring.electronics.category.CategoryDto;
-import com.spring.electronics.category.CategoryRepository;
-import com.spring.electronics.category.CategoryService;
+import com.spring.electronics.category.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+
+    private final CategoryMapper categoryMapper;
 
     @Transactional
     @Override
@@ -48,22 +49,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<CategoryDto> getAllCategories() {
-        return categoryRepository.findAll().stream().map(Category::getCategoryDto).toList();
+        return categoryRepository.findAll().stream().map(categoryMapper::categoryToCategoryDto).toList();
     }
 
     @Override
     public CategoryDto getCategory(String code) {
-        return categoryRepository.findByCode(code).orElseThrow(() -> new RuntimeException("Category Not found")).getCategoryDto();
-    }
-
-    @Override
-    public Set<Category> getCategoriesForCode(Set<String> categoryCodes) {
-        return ObjectUtils.isEmpty(categoryCodes) ?
-                Collections.emptySet() :
-                categoryCodes.stream()
-                        .map(categoryRepository::findByCode)
-                        .flatMap(Optional::stream)  // Only map to present categories
-                        .collect(Collectors.toSet());
+        return categoryRepository.findByCode(code)
+                .map(categoryMapper::categoryToCategoryDto)
+                .orElseThrow(() -> new RuntimeException("Category Not found"));
     }
 
     @Override
@@ -93,7 +86,7 @@ public class CategoryServiceImpl implements CategoryService {
             categoryCodes.remove(category.getCode());  // Avoid self-referencing
         }
 
-        Set<Category> superCategories = getCategoriesForCode(categoryCodes);
+        Set<Category> superCategories = categoryMapper.codesToCategories(categoryCodes);
         // Update super categories relationship
         if (!ObjectUtils.isEmpty(superCategories)) {
             category.setSuperCategories(superCategories);
