@@ -1,7 +1,6 @@
 package com.spring.electronics.category;
 
 import java.util.List;
-import java.util.Set;
 
 public interface CategoryService {
 
@@ -27,14 +26,6 @@ public interface CategoryService {
      * @return CategoryDto
      */
     CategoryDto getCategory(String code);
-
-    /**
-     * Method to get Set of categories
-     *
-     * @param categoryCodes Set of category codes
-     * @return Set of Category
-     */
-    Set<Category> getCategoriesForCode(Set<String> categoryCodes);
 
 
     /**

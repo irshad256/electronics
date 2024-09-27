@@ -2,7 +2,7 @@ package com.spring.electronics.backoffice;
 
 import com.spring.electronics.category.Category;
 import com.spring.electronics.category.CategoryDto;
-import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.category.CategoryMapper;
 import com.spring.electronics.category.CategoryService;
 import com.spring.electronics.config.FileStorageProperties;
 import com.spring.electronics.product.Product;
@@ -10,8 +10,10 @@ import com.spring.electronics.product.ProductDto;
 import com.spring.electronics.product.ProductRepository;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleDto;
+import com.spring.electronics.role.RoleMapper;
 import com.spring.electronics.user.User;
 import com.spring.electronics.user.UserDto;
+import com.spring.electronics.user.UserMaper;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -24,7 +26,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/backoffice")
@@ -36,11 +40,15 @@ public class AdminController {
 
     private final ProductRepository productRepository;
 
-    private final CategoryRepository categoryRepository;
-
     private final FileStorageProperties fileStorageProperties;
 
     private final CategoryService categoryService;
+
+    private final UserMaper userMaper;
+
+    private final RoleMapper roleMapper;
+
+    private final CategoryMapper categoryMapper;
 
     @GetMapping(value = "/users", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<List<UserDto>> getAllUsers() {
@@ -75,11 +83,7 @@ public class AdminController {
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
         Set<String> categoryCodes = productDto.getCategoryCodes();
-        Set<Category> categories = new HashSet<>();
-        categoryCodes.forEach(categoryCode -> {
-            Optional<Category> category = categoryRepository.findByCode(categoryCode);
-            category.ifPresent(categories::add);
-        });
+        Set<Category> categories = categoryMapper.codesToCategories(categoryCodes);
 
         if (!ObjectUtils.isEmpty(categories)) {
             Product product = Product.builder()
@@ -121,15 +125,6 @@ public class AdminController {
 
     private List<RoleDto> getRolesDto(User user) {
         List<Role> roles = user.getRoles();
-        List<RoleDto> rolesDto = new ArrayList<>();
-        roles.forEach(role -> rolesDto.add(
-                RoleDto.builder()
-                        .id(role.getId())
-                        .name(role.getName())
-                        .createdDate(role.getCreatedDate())
-                        .lastModifiedDate(role.getLastModifiedDate())
-                        .build()
-        ));
-        return rolesDto;
+        return roleMapper.roleListToRoleDtoList(roles);
     }
 }
