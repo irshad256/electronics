@@ -13,7 +13,7 @@ import com.spring.electronics.role.RoleDto;
 import com.spring.electronics.role.RoleMapper;
 import com.spring.electronics.user.User;
 import com.spring.electronics.user.UserDto;
-import com.spring.electronics.user.UserMaper;
+import com.spring.electronics.user.UserMapper;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +44,7 @@ public class AdminController {
 
     private final CategoryService categoryService;
 
-    private final UserMaper userMaper;
+    private final UserMapper userMapper;
 
     private final RoleMapper roleMapper;
 
@@ -55,19 +55,11 @@ public class AdminController {
         List<User> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
 
-        users.forEach(user -> usersDto.add(
-                UserDto.builder()
-                        .id(user.getId())
-                        .firstName(user.getFirstName())
-                        .lastName(user.getLastName())
-                        .email(user.getEmail())
-                        .roles(getRolesDto(user))
-                        .title(user.getTitle())
-                        .accountLocked(user.isAccountLocked())
-                        .enabled(user.isEnabled())
-                        .dateOfBirth(user.getDateOfBirth())
-                        .build()
-        ));
+        users.forEach(user -> {
+            UserDto userDto = userMapper.userToUserDto(user);
+            userDto.setRoles(getRolesDto(user));
+            usersDto.add(userDto);
+        });
         return ResponseEntity.ok(usersDto);
     }
 
