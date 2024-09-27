@@ -9,6 +9,7 @@ import java.util.List;
 public interface UserMaper {
 
     @Mapping(target = "password", ignore = true)
+    @Mapping(target = "roles", ignore = true)
     UserDto userToUserDto(User user);
 
     List<UserDto> userListToUserDtoList(List<User> list);
