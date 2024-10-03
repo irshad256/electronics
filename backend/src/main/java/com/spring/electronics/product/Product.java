@@ -44,7 +44,7 @@ public class Product {
 
     private boolean active;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JoinTable(
             name = "products_categories",
             joinColumns = @JoinColumn(name = "product_id"),

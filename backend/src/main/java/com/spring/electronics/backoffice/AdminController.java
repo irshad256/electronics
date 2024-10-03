@@ -8,6 +8,7 @@ import com.spring.electronics.config.FileStorageProperties;
 import com.spring.electronics.product.Product;
 import com.spring.electronics.product.ProductDto;
 import com.spring.electronics.product.ProductRepository;
+import com.spring.electronics.product.ProductService;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleDto;
 import com.spring.electronics.role.RoleMapper;
@@ -44,6 +45,8 @@ public class AdminController {
 
     private final CategoryService categoryService;
 
+    private final ProductService productService;
+
     private final UserMapper userMapper;
 
     private final RoleMapper roleMapper;
@@ -75,18 +78,8 @@ public class AdminController {
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
         Set<String> categoryCodes = productDto.getCategoryCodes();
-        Set<Category> categories = categoryMapper.codesToCategories(categoryCodes);
 
-        if (!ObjectUtils.isEmpty(categories)) {
-            Product product = Product.builder()
-                    .code(productDto.getCode())
-                    .name(productDto.getName())
-                    .active(productDto.isActive())
-                    .categories(categories)
-                    .description(productDto.getDescription())
-                    .price(productDto.getPrice())
-                    .stock(productDto.getStock())
-                    .build();
+        if (!ObjectUtils.isEmpty(categoryCodes)) {
 
             if (!ObjectUtils.isEmpty(image)) {
                 // Define the directory path
@@ -105,11 +98,11 @@ public class AdminController {
 
                 String imgUrl = "/external-files/products/" + fileName;
 
-                product.setImgUrl(imgUrl);
+                productDto.setImgUrl(imgUrl);
 
             }
+            Product product = productService.createProduct(productDto);
 
-            productRepository.save(product);
             return ResponseEntity.ok(product);
         }
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Product.builder().build());

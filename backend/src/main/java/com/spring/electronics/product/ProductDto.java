@@ -2,12 +2,14 @@ package com.spring.electronics.product;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 
 @Builder
 @Getter
+@Setter
 public class ProductDto {
 
     private String code;

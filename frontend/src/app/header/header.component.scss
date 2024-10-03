@@ -112,8 +112,16 @@
     position: absolute;
     top: 100%; /* Display below the dropdown */
     font-weight: normal;
-    text-decoration: underline;
     min-width: 15rem;
     text-align: center;
     border-radius: unset;
+}
+
+.dropdown-menu-header {
+    text-decoration: underline;
+}
+
+.dropdown-items {
+    padding: 3px;
+    text-transform: capitalize;
 }
