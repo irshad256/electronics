@@ -8,12 +8,13 @@ import com.spring.electronics.config.FileStorageProperties;
 import com.spring.electronics.product.Product;
 import com.spring.electronics.product.ProductDto;
 import com.spring.electronics.product.ProductRepository;
+import com.spring.electronics.product.ProductService;
 import com.spring.electronics.role.Role;
 import com.spring.electronics.role.RoleDto;
 import com.spring.electronics.role.RoleMapper;
 import com.spring.electronics.user.User;
 import com.spring.electronics.user.UserDto;
-import com.spring.electronics.user.UserMaper;
+import com.spring.electronics.user.UserMapper;
 import com.spring.electronics.user.UserRepository;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -44,7 +45,9 @@ public class AdminController {
 
     private final CategoryService categoryService;
 
-    private final UserMaper userMaper;
+    private final ProductService productService;
+
+    private final UserMapper userMapper;
 
     private final RoleMapper roleMapper;
 
@@ -55,19 +58,11 @@ public class AdminController {
         List<User> users = userRepository.findAll();
         List<UserDto> usersDto = new ArrayList<>();
 
-        users.forEach(user -> usersDto.add(
-                UserDto.builder()
-                        .id(user.getId())
-                        .firstName(user.getFirstName())
-                        .lastName(user.getLastName())
-                        .email(user.getEmail())
-                        .roles(getRolesDto(user))
-                        .title(user.getTitle())
-                        .accountLocked(user.isAccountLocked())
-                        .enabled(user.isEnabled())
-                        .dateOfBirth(user.getDateOfBirth())
-                        .build()
-        ));
+        users.forEach(user -> {
+            UserDto userDto = userMapper.userToUserDto(user);
+            userDto.setRoles(getRolesDto(user));
+            usersDto.add(userDto);
+        });
         return ResponseEntity.ok(usersDto);
     }
 
@@ -83,18 +78,8 @@ public class AdminController {
     ResponseEntity<Product> addProduct(@RequestPart("productDto") ProductDto productDto,
                                        @RequestPart("image") MultipartFile image) throws IOException {
         Set<String> categoryCodes = productDto.getCategoryCodes();
-        Set<Category> categories = categoryMapper.codesToCategories(categoryCodes);
 
-        if (!ObjectUtils.isEmpty(categories)) {
-            Product product = Product.builder()
-                    .code(productDto.getCode())
-                    .name(productDto.getName())
-                    .active(productDto.isActive())
-                    .categories(categories)
-                    .description(productDto.getDescription())
-                    .price(productDto.getPrice())
-                    .stock(productDto.getStock())
-                    .build();
+        if (!ObjectUtils.isEmpty(categoryCodes)) {
 
             if (!ObjectUtils.isEmpty(image)) {
                 // Define the directory path
@@ -113,11 +98,11 @@ public class AdminController {
 
                 String imgUrl = "/external-files/products/" + fileName;
 
-                product.setImgUrl(imgUrl);
+                productDto.setImgUrl(imgUrl);
 
             }
+            Product product = productService.createProduct(productDto);
 
-            productRepository.save(product);
             return ResponseEntity.ok(product);
         }
         return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Product.builder().build());

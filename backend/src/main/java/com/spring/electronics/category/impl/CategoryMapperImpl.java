@@ -41,7 +41,7 @@ public class CategoryMapperImpl implements CategoryMapper {
                 .build();
     }
 
-    //    @Override
+    @Override
     public Set<Category> codesToCategories(Set<String> categoryCodes) {
         // Handle null or empty set
         if (categoryCodes == null || categoryCodes.isEmpty()) {
