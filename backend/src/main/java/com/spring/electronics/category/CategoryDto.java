@@ -1,11 +1,14 @@
 package com.spring.electronics.category;
 
+import com.spring.electronics.product.ProductDto;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Set;
 
 @Getter
+@Setter
 @Builder
 public class CategoryDto {
 
@@ -18,5 +21,7 @@ public class CategoryDto {
     private Set<String> superCategories;
 
     private Set<String> subCategories;
+
+    private Set<ProductDto> products;
 
 }

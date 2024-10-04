@@ -19,4 +19,4 @@ film_cameras                 ; Film cameras                 ; Film cameras      
 digital_cameras              ; Digital Cameras              ; Digital Cameras              ; cameras
 webcams                      ; Webcams                      ; Webcams                      ; webcams
 digital_compacts             ; Digital Compacts             ; Digital Compacts             ; digital_cameras
-digital_slr                  ; Digital SLR                  ; Digital SLR                  ; digital_slr
+digital_slr                  ; Digital SLR                  ; Digital SLR                  ; digital_cameras

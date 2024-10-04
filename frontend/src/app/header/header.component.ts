@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
   }
 
   categoryPage(code: any){
-    this.router.navigate(['c/'+code])
+    this.router.navigate(['c/' + code])
   }
 
   ngOnInit(): void {

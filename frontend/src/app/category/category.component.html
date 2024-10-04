@@ -1,1 +1,21 @@
-<h3>{{category.name}}</h3>
+<div class="breadcrumbs">{{products.length}} results for {{category.name}}</div>
+<div class="container">
+    <div class="row">
+        <!-- Loop through products and display 3 cards per row -->
+        <div class="col-md-4" *ngFor="let product of products">
+            <div class="card mb-3 fixed-card-size">
+                <img class="card-img-top" [src]="apiConfig.rootUrl + product.imgUrl" alt="Product image">
+                <div class="card-body">
+                    <h5 class="card-title">{{product.name}}</h5>
+                    <p class="card-text">{{product.price | currency}}</p>
+                    <div *ngIf="isLoggedIn">
+                        <button class="btn btn-lg btn-primary btn-block">
+                            Add To Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

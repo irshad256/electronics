@@ -1,20 +1,18 @@
-package com.spring.electronics.product.impl;
+package com.spring.electronics.mapper.impl;
 
-import com.spring.electronics.category.CategoryMapper;
-import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.mapper.CategoryMapper;
+import com.spring.electronics.mapper.ProductMapper;
 import com.spring.electronics.product.Product;
 import com.spring.electronics.product.ProductDto;
-import com.spring.electronics.product.ProductMapper;
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+
 @Component
 @RequiredArgsConstructor
-@Builder
 public class ProductMapperImpl implements ProductMapper {
-
-    private final CategoryRepository categoryRepository;
 
     private final CategoryMapper categoryMapper;
 
@@ -30,6 +28,11 @@ public class ProductMapperImpl implements ProductMapper {
                 .imgUrl(product.getImgUrl())
                 .categoryCodes(categoryMapper.categoriesToCodes(product.getCategories()))
                 .build();
+    }
+
+    @Override
+    public Set<ProductDto> productsToProductDtoSet(Set<Product> products) {
+        return products.stream().map(this::productToProductDto).collect(Collectors.toSet());
     }
 
     @Override

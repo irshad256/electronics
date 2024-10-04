@@ -1,0 +1,29 @@
+.btn-primary {
+    background-color: #fe5757;
+    border: #fe5757;
+}
+
+.card {
+    border: unset;
+}
+
+.fixed-card-size {
+    width: 300px;      /* Fixed width for each card */
+    height: 400px;     /* Fixed height for each card */
+}
+
+.fixed-card-size img {
+    height: 200px;     /* Fix height for images */
+    object-fit: cover; /* Ensure image scales without distortion */
+}
+
+.breadcrumbs{
+    text-align: center;
+    font-size: x-large;
+    font-weight: 400;
+    background-color: #f1f2f2;
+}
+
+.container {
+    margin-top: 50px;
+}

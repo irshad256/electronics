@@ -69,7 +69,7 @@
         <td>{{product.name}}</td>
         <td>{{product.stock}}</td>
         <td>{{product.active}}</td>
-        <td><img src="{{apiConfig.rootUrl}}{{product.imgUrl}}" class="prod-img"></td>
+        <td><img [src]="apiConfig.rootUrl + product.imgUrl" class="prod-img"></td>
         </tr>
     </tbody>
 </table>

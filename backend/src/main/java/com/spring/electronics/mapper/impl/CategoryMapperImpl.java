@@ -1,10 +1,9 @@
-package com.spring.electronics.category.impl;
+package com.spring.electronics.mapper.impl;
 
 import com.spring.electronics.category.Category;
 import com.spring.electronics.category.CategoryDto;
-import com.spring.electronics.category.CategoryMapper;
 import com.spring.electronics.category.CategoryRepository;
-import lombok.Builder;
+import com.spring.electronics.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,7 +13,6 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
-@Builder
 public class CategoryMapperImpl implements CategoryMapper {
 
     private final CategoryRepository categoryRepository;

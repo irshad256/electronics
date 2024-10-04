@@ -1,5 +1,7 @@
-package com.spring.electronics.role;
+package com.spring.electronics.mapper;
 
+import com.spring.electronics.role.Role;
+import com.spring.electronics.role.RoleDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

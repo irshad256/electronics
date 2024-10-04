@@ -1,15 +1,19 @@
 package com.spring.electronics.category.impl;
 
-import com.spring.electronics.category.*;
+import com.spring.electronics.category.Category;
+import com.spring.electronics.category.CategoryDto;
+import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.category.CategoryService;
+import com.spring.electronics.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
     public Category createCategory(CategoryDto categoryDto) {
         Set<String> superCategoryCodes = categoryDto.getSuperCategories();
         Set<Category> superCategories = new HashSet<>();
+        Category currentCategory = Category.builder()
+                .code(categoryDto.getCode())
+                .name(categoryDto.getName())
+                .description(categoryDto.getDescription())
+                .build();
         superCategoryCodes.forEach(categoryCode -> {
             Optional<Category> category = categoryRepository.findByCode(categoryCode);
             if (category.isPresent()) {
@@ -33,23 +42,19 @@ public class CategoryServiceImpl implements CategoryService {
                 if (subCategories == null) {
                     subCategories = new HashSet<>();
                 }
-                subCategories.add(superCategory);
+                subCategories.add(currentCategory);
                 superCategory.setSubCategories(subCategories);
             }
         });
-        Category category = Category.builder()
-                .code(categoryDto.getCode())
-                .name(categoryDto.getName())
-                .description(categoryDto.getDescription())
-                .superCategories(superCategories)
-                .build();
-        categoryRepository.save(category);
-        return category;
+        currentCategory.setSuperCategories(superCategories);
+
+        categoryRepository.save(currentCategory);
+        return currentCategory;
     }
 
     @Override
-    public List<CategoryDto> getAllCategories() {
-        return categoryRepository.findAll().stream().map(categoryMapper::categoryToCategoryDto).toList();
+    public Set<CategoryDto> getAllCategories() {
+        return categoryRepository.findAll().stream().map(categoryMapper::categoryToCategoryDto).collect(Collectors.toSet());
     }
 
     @Override

@@ -1,5 +1,7 @@
-package com.spring.electronics.user;
+package com.spring.electronics.mapper;
 
+import com.spring.electronics.user.User;
+import com.spring.electronics.user.UserDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
