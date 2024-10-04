@@ -1,4 +1,7 @@
-package com.spring.electronics.category;
+package com.spring.electronics.mapper;
+
+import com.spring.electronics.category.Category;
+import com.spring.electronics.category.CategoryDto;
 
 import java.util.Set;
 import java.util.stream.Collectors;

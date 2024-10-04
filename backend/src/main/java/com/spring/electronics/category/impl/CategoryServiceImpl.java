@@ -1,15 +1,19 @@
 package com.spring.electronics.category.impl;
 
-import com.spring.electronics.category.*;
+import com.spring.electronics.category.Category;
+import com.spring.electronics.category.CategoryDto;
+import com.spring.electronics.category.CategoryRepository;
+import com.spring.electronics.category.CategoryService;
+import com.spring.electronics.mapper.CategoryMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -48,8 +52,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<CategoryDto> getAllCategories() {
-        return categoryRepository.findAll().stream().map(categoryMapper::categoryToCategoryDto).toList();
+    public Set<CategoryDto> getAllCategories() {
+        return categoryRepository.findAll().stream().map(categoryMapper::categoryToCategoryDto).collect(Collectors.toSet());
     }
 
     @Override

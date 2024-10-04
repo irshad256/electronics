@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,8 +26,8 @@ public class CategoryController {
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categories = categoryService.getAllCategories();
+    ResponseEntity<Set<CategoryDto>> getAllCategories() {
+        Set<CategoryDto> categories = categoryService.getAllCategories();
         return ResponseEntity.status(HttpStatus.OK).body(categories);
     }
 }

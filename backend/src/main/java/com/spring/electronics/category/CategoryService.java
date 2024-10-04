@@ -1,6 +1,6 @@
 package com.spring.electronics.category;
 
-import java.util.List;
+import java.util.Set;
 
 public interface CategoryService {
 
@@ -15,9 +15,9 @@ public interface CategoryService {
     /**
      * Method to get all the existing categories.
      *
-     * @return List of all existing CategoryDto
+     * @return Set of all existing CategoryDto
      */
-    List<CategoryDto> getAllCategories();
+    Set<CategoryDto> getAllCategories();
 
     /**
      * Method to get the category for the specific categoryCode

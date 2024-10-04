@@ -19,4 +19,6 @@ public class CategoryDto {
 
     private Set<String> subCategories;
 
+    private Set<String> productCodes;
+
 }
