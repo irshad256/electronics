@@ -4,7 +4,7 @@
         <!-- Loop through products and display 3 cards per row -->
         <div class="col-md-4" *ngFor="let product of products">
             <div class="card mb-3 fixed-card-size">
-                <img class="card-img-top" [src]="apiConfig.rootUrl + product.imgUrl" alt="Product image">
+                <img class="card-img-top" [src]="apiConfig.rootUrl + product.imgUrl" (click)="productPage(product.code)" alt="Product image">
                 <div class="card-body">
                     <h5 class="card-title">{{product.name}}</h5>
                     <p class="card-text">{{product.price | currency}}</p>
