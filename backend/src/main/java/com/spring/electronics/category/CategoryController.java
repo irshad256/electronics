@@ -1,5 +1,6 @@
 package com.spring.electronics.category;
 
+import com.spring.electronics.product.ProductService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,9 +21,13 @@ public class CategoryController {
 
     private final CategoryService categoryService;
 
+    private final ProductService productService;
+
     @GetMapping(value = "/{code}", produces = MediaType.APPLICATION_JSON_VALUE)
     public CategoryDto getCategory(@PathVariable String code) {
-        return categoryService.getCategory(code);
+        CategoryDto categoryDto = categoryService.getCategory(code);
+        categoryDto.setProducts(productService.getProductsForCategoryAndSubcategories(code));
+        return categoryDto;
     }
 
     @GetMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -4,7 +4,6 @@ import com.spring.electronics.category.Category;
 import com.spring.electronics.category.CategoryDto;
 import com.spring.electronics.category.CategoryRepository;
 import com.spring.electronics.mapper.CategoryMapper;
-import com.spring.electronics.product.Product;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -26,12 +25,7 @@ public class CategoryMapperImpl implements CategoryMapper {
                 .description(category.getDescription())
                 .superCategories(categoriesToCodes(category.getSuperCategories()))
                 .subCategories(categoriesToCodes(category.getSubCategories()))
-                .productCodes(productsToCodes(category.getProducts()))
                 .build();
-    }
-
-    private Set<String> productsToCodes(Set<Product> products) {
-        return products.stream().map(Product::getCode).collect(Collectors.toSet());
     }
 
     @Override

@@ -30,8 +30,4 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(products);
     }
 
-    @GetMapping(value = "/codes", produces = MediaType.APPLICATION_JSON_VALUE)
-    ResponseEntity<Set<ProductDto>> getProductForCodes(@RequestBody Set<String> codes) {
-        return ResponseEntity.status(HttpStatus.OK).body(productService.codesToProductDtoSet(codes));
-    }
 }

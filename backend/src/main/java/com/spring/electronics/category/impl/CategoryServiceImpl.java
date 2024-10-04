@@ -28,6 +28,11 @@ public class CategoryServiceImpl implements CategoryService {
     public Category createCategory(CategoryDto categoryDto) {
         Set<String> superCategoryCodes = categoryDto.getSuperCategories();
         Set<Category> superCategories = new HashSet<>();
+        Category currentCategory = Category.builder()
+                .code(categoryDto.getCode())
+                .name(categoryDto.getName())
+                .description(categoryDto.getDescription())
+                .build();
         superCategoryCodes.forEach(categoryCode -> {
             Optional<Category> category = categoryRepository.findByCode(categoryCode);
             if (category.isPresent()) {
@@ -37,18 +42,14 @@ public class CategoryServiceImpl implements CategoryService {
                 if (subCategories == null) {
                     subCategories = new HashSet<>();
                 }
-                subCategories.add(superCategory);
+                subCategories.add(currentCategory);
                 superCategory.setSubCategories(subCategories);
             }
         });
-        Category category = Category.builder()
-                .code(categoryDto.getCode())
-                .name(categoryDto.getName())
-                .description(categoryDto.getDescription())
-                .superCategories(superCategories)
-                .build();
-        categoryRepository.save(category);
-        return category;
+        currentCategory.setSuperCategories(superCategories);
+
+        categoryRepository.save(currentCategory);
+        return currentCategory;
     }
 
     @Override
