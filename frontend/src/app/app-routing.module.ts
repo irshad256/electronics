@@ -57,7 +57,10 @@ const routes: Routes = [
       {
         path: 'c/:categoryCode',
         component: CategoryComponent
-        
+      },
+      {
+        path: 'p/:productCode',
+        component: ProductsComponent
       }
     ]
   },

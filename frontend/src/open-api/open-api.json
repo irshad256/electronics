@@ -155,6 +155,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "uniqueItems": true,
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/ProductDto"
@@ -208,6 +209,7 @@
             "content": {
               "application/json": {
                 "schema": {
+                  "uniqueItems": true,
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/CategoryDto"
@@ -318,37 +320,6 @@
           },
           "description": {
             "type": "string"
-          },
-          "categoryDto": {
-            "$ref": "#/components/schemas/CategoryDto"
-          }
-        }
-      },
-      "CategoryDto": {
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "description": {
-            "type": "string"
-          },
-          "superCategories": {
-            "uniqueItems": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "subCategories": {
-            "uniqueItems": true,
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
           }
         }
       },
@@ -399,6 +370,41 @@
           },
           "productDto": {
             "$ref": "#/components/schemas/ProductDto"
+          }
+        }
+      },
+      "CategoryDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "superCategories": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "subCategories": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "products": {
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ProductDto"
+            }
           }
         }
       },
