@@ -20,6 +20,8 @@ public interface ProductService {
      */
     void updateProduct(Product product, ProductDto productDto);
 
+    Set<ProductDto> getAllProducts();
+
     /**
      * Fetch Set of ProductDto for the Category
      *
@@ -27,4 +29,20 @@ public interface ProductService {
      * @return Set of ProductDto associated with category
      */
     Set<ProductDto> getProductsForCategoryAndSubcategories(String categoryCode);
+
+    /**
+     * Search for products based from solr
+     *
+     * @param query query
+     * @return Set of ProductDto
+     */
+//    Set<ProductDto> searchProductsInSolr(String query);
+
+    /**
+     * Search Product by CategoryCode
+     *
+     * @param categoryCode Category Code
+     * @return Set of ProductDto
+     */
+//    Set<ProductDto> searchProductsByCategoryCode(String categoryCode);
 }

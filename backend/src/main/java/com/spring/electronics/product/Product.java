@@ -9,7 +9,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -18,6 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
+//@SolrDocument(collection = "products")
 public class Product {
 
     @Id
@@ -55,18 +55,5 @@ public class Product {
     private String imgUrl;
 
     private double price;
-
-    public ProductDto getProductDto() {
-        return ProductDto.builder()
-                .code(code)
-                .name(name)
-                .imgUrl(imgUrl)
-                .price(price)
-                .stock(stock)
-                .description(description)
-                .active(active)
-                .categoryCodes(categories.stream().map(Category::getCode).collect(Collectors.toSet()))
-                .build();
-    }
 
 }
