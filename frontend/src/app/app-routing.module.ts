@@ -15,6 +15,7 @@ import { CategoriesComponent } from './backoffice/categories/categories.componen
 import { BackofficeLayoutComponent } from './backoffice/layout/layout.component';
 import { ManageUserComponent } from './backoffice/manage-user/manage-user.component';
 import { CategoryComponent } from './category/category.component';
+import { ProductComponent } from './product/product.component';
 
 const routes: Routes = [
   { 
@@ -60,7 +61,7 @@ const routes: Routes = [
       },
       {
         path: 'p/:productCode',
-        component: ProductsComponent
+        component: ProductComponent
       }
     ]
   },

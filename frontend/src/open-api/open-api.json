@@ -143,6 +143,36 @@
         }
       }
     },
+    "/p/{code}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "getProductForCode",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductDto"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/p/": {
       "get": {
         "tags": [

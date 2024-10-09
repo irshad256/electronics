@@ -11,12 +11,39 @@ import { StrictHttpResponse } from '../strict-http-response';
 
 import { getAllProduct } from '../fn/product/get-all-product';
 import { GetAllProduct$Params } from '../fn/product/get-all-product';
+import { getProductForCode } from '../fn/product/get-product-for-code';
+import { GetProductForCode$Params } from '../fn/product/get-product-for-code';
 import { ProductDto } from '../models/product-dto';
 
 @Injectable({ providedIn: 'root' })
 export class ProductService extends BaseService {
   constructor(config: ApiConfiguration, http: HttpClient) {
     super(config, http);
+  }
+
+  /** Path part for operation `getProductForCode()` */
+  static readonly GetProductForCodePath = '/p/{code}';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `getProductForCode()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProductForCode$Response(params: GetProductForCode$Params, context?: HttpContext): Observable<StrictHttpResponse<ProductDto>> {
+    return getProductForCode(this.http, this.rootUrl, params, context);
+  }
+
+  /**
+   * This method provides access only to the response body.
+   * To access the full response (for headers, for example), `getProductForCode$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  getProductForCode(params: GetProductForCode$Params, context?: HttpContext): Observable<ProductDto> {
+    return this.getProductForCode$Response(params, context).pipe(
+      map((r: StrictHttpResponse<ProductDto>): ProductDto => r.body)
+    );
   }
 
   /** Path part for operation `getAllProduct()` */
