@@ -16,6 +16,10 @@ import { BackofficeLayoutComponent } from './backoffice/layout/layout.component'
 import { ManageUserComponent } from './backoffice/manage-user/manage-user.component';
 import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 
 const routes: Routes = [
   { 
@@ -62,6 +66,22 @@ const routes: Routes = [
       {
         path: 'p/:productCode',
         component: ProductComponent
+      },
+      {
+        path: 'order-history',
+        component: OrderHistoryComponent
+      },
+      {
+        path: 'update-password',
+        component: UpdatePasswordComponent
+      },
+      {
+        path: 'wishlist',
+        component: WishlistComponent
+      },
+      {
+        path: 'personal-details',
+        component: PersonalDetailsComponent
       }
     ]
   },

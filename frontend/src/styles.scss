@@ -17,3 +17,13 @@ main {
     border-color: #db0002;
     color: #db0002;
 }
+
+.home-link {
+    color: #828282;
+}
+
+.home-link:hover {
+    color: #fe5757;
+    text-decoration: underline;
+    cursor: pointer;
+}
