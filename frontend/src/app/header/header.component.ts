@@ -10,7 +10,6 @@ import { CategoryDto } from '../services/models';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
   constructor(
     private router:Router,
     private authService: AuthService,
@@ -39,6 +38,19 @@ export class HeaderComponent implements OnInit {
 
   categoryPage(code: any){
     this.router.navigate(['c/' + code])
+  }
+
+  orderHistory() {
+    this.router.navigate(['order-history']);
+  }
+  wishlist() {
+    this.router.navigate(['wishlist']);
+  }
+  pesonalDetails() {
+    this.router.navigate(['personal-details']);
+  }
+  updatePassword() {
+    this.router.navigate(['update-password']);
   }
 
   ngOnInit(): void {

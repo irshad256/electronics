@@ -9,20 +9,28 @@
 <div class="header-bottom">  
     <div class="header-bottom-top">
         <img class="logo-img" src="../../assets/SAP_scrn_R.png" (click)="home()">
-        <div class="search-container">
+        <span class="search-container">
             <input class="search" type="search" placeholder="Search here" aria-label="Search">
             <i class="fa fa-search search-icon"></i>
-        </div>
+        </span>  
+        <span class="user-cart" *ngIf="isLoggedIn() else loggedOut">
+            <span class="logged-in-user">Hi, {{ fullName }}</span>
+            <div class="account-dropdown">
+                <span class="my-account dropdown-toggle">My Account</span>
+                <ul class="my-account-dropdown">
+                    <li class="dropdown-items" (click)="orderHistory()">Order History</li>
+                    <li class="dropdown-items" (click)="wishlist()">Wish List</li>
+                    <li class="dropdown-items" (click)="pesonalDetails()">Personal Details</li>
+                    <li class="dropdown-items" (click)="updatePassword()">Password</li>
+                    <li class="dropdown-items" (click)="logout()">Logout</li>
+                </ul>
+            </div>
+            <i class="fa-solid fa-cart-shopping"></i>
+        </span>
+        <ng-template #loggedOut>
+            <span class="sign-in-register-link" (click)="login()">Sign In / Register</span>
+        </ng-template>
     </div>
-    <span class="user-cart" *ngIf="isLoggedIn() else loggedOut">
-        <div class="logged-in-user">Welcome, {{ fullName }}</div>
-        <i class="fa-solid fa-cart-shopping"></i>
-        <div class="sign-out" (click)="logout()">Logout</div>
-    </span>
-    <ng-template #loggedOut>
-        <div class="sign-in-register-link" (click)="login()">Sign In / Register</div>
-    </ng-template>
-    
 </div>
 <div class="category-nav">
     <span class="nav-item dropdown" *ngFor="let category of categories">

@@ -20,6 +20,10 @@ import { HttpTokenInterceptor } from './services/interceptor/http-token.intercep
 import { BackofficeModule } from './backoffice/backoffice.module';
 import { CategoryComponent } from './category/category.component';
 import { ProductComponent } from './product/product.component';
+import { OrderHistoryComponent } from './order-history/order-history.component';
+import { WishlistComponent } from './wishlist/wishlist.component';
+import { PersonalDetailsComponent } from './personal-details/personal-details.component';
+import { UpdatePasswordComponent } from './update-password/update-password.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +38,11 @@ import { ProductComponent } from './product/product.component';
     TermsAndConditionsComponent,
     ActivateAccountComponent,
     CategoryComponent,
-    ProductComponent
+    ProductComponent,
+    OrderHistoryComponent,
+    WishlistComponent,
+    PersonalDetailsComponent,
+    UpdatePasswordComponent
   ],
   imports: [
     BrowserModule,
