@@ -6,6 +6,7 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { BackofficeService } from './services/backoffice.service';
 import { AuthenticationService } from './services/authentication.service';
+import { AccountService } from './services/account.service';
 import { ProductService } from './services/product.service';
 import { CategoryService } from './services/category.service';
 
@@ -19,6 +20,7 @@ import { CategoryService } from './services/category.service';
   providers: [
     BackofficeService,
     AuthenticationService,
+    AccountService,
     ProductService,
     CategoryService,
     ApiConfiguration

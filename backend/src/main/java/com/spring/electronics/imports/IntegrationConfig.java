@@ -38,7 +38,7 @@ public class IntegrationConfig {
     @Bean(name = PollerMetadata.DEFAULT_POLLER)
     public PollerMetadata poller() {
         PollerMetadata poller = new PollerMetadata();
-        poller.setTrigger(new PeriodicTrigger(Duration.ofSeconds(900)));
+        poller.setTrigger(new PeriodicTrigger(Duration.ofSeconds(9000)));
         return poller;
     }
 
