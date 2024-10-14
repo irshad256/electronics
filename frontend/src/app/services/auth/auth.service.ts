@@ -25,6 +25,15 @@ export class AuthService {
     return '';
   }
 
+  getEmail(): string {
+    const token = localStorage.getItem('token');
+    if (token) {
+      const decodedToken: any = jwtDecode(token);
+      return decodedToken.sub; 
+    }
+    return '';
+  }
+
   getUserRole(): string | null {
     const token = localStorage.getItem('token');
     if (token) {

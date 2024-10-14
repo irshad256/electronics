@@ -8,4 +8,5 @@ export { Product } from './models/product';
 export { ProductDto } from './models/product-dto';
 export { RegistrationRequest } from './models/registration-request';
 export { RoleDto } from './models/role-dto';
+export { UpdateProfileRequest } from './models/update-profile-request';
 export { UserDto } from './models/user-dto';
