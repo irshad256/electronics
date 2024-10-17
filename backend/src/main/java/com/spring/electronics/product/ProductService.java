@@ -27,4 +27,6 @@ public interface ProductService {
      * @return Set of ProductDto associated with category
      */
     Set<ProductDto> getProductsForCategoryAndSubcategories(String categoryCode);
+
+    Set<ProductDto> findAll();
 }

@@ -56,17 +56,4 @@ public class Product {
 
     private double price;
 
-    public ProductDto getProductDto() {
-        return ProductDto.builder()
-                .code(code)
-                .name(name)
-                .imgUrl(imgUrl)
-                .price(price)
-                .stock(stock)
-                .description(description)
-                .active(active)
-                .categoryCodes(categories.stream().map(Category::getCode).collect(Collectors.toSet()))
-                .build();
-    }
-
 }
