@@ -3,9 +3,10 @@ import { CategoryDto } from 'src/app/services/models';
 import { BackofficeService, CategoryService } from 'src/app/services/services';
 
 @Component({
-  selector: 'app-categories',
-  templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+    selector: 'app-categories',
+    templateUrl: './categories.component.html',
+    styleUrls: ['./categories.component.scss'],
+    standalone: false
 })
 export class CategoriesComponent implements OnInit {
 
