@@ -3,9 +3,10 @@ import { UserDto } from 'src/app/services/models';
 import { BackofficeService } from 'src/app/services/services';
 
 @Component({
-  selector: 'app-manage-user',
-  templateUrl: './manage-user.component.html',
-  styleUrls: ['./manage-user.component.scss']
+    selector: 'app-manage-user',
+    templateUrl: './manage-user.component.html',
+    styleUrls: ['./manage-user.component.scss'],
+    standalone: false
 })
 export class ManageUserComponent implements OnInit {
 

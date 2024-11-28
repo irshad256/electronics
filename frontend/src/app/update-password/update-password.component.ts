@@ -5,9 +5,10 @@ import { AuthService } from '../services/auth/auth.service';
 import { UpdateProfileRequest } from '../services/models';
 
 @Component({
-  selector: 'app-update-password',
-  templateUrl: './update-password.component.html',
-  styleUrls: ['./update-password.component.scss']
+    selector: 'app-update-password',
+    templateUrl: './update-password.component.html',
+    styleUrls: ['./update-password.component.scss'],
+    standalone: false
 })
 export class UpdatePasswordComponent implements OnInit {
 

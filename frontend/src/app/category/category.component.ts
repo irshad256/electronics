@@ -6,9 +6,10 @@ import { ApiConfiguration } from '../services/api-configuration';
 import { AuthService } from '../services/auth/auth.service';
 
 @Component({
-  selector: 'app-category',
-  templateUrl: './category.component.html',
-  styleUrls: ['./category.component.scss']
+    selector: 'app-category',
+    templateUrl: './category.component.html',
+    styleUrls: ['./category.component.scss'],
+    standalone: false
 })
 export class CategoryComponent implements OnInit {
 
