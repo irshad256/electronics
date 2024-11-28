@@ -3,9 +3,10 @@ import { AuthenticationService } from '../services/services';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-activate-account',
-  templateUrl: './activate-account.component.html',
-  styleUrls: ['./activate-account.component.scss']
+    selector: 'app-activate-account',
+    templateUrl: './activate-account.component.html',
+    styleUrls: ['./activate-account.component.scss'],
+    standalone: false
 })
 export class ActivateAccountComponent implements OnInit {
 
