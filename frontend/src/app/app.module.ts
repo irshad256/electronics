@@ -14,7 +14,7 @@ import { RegisterComponent } from './register/register.component';
 import { TermsAndConditionsComponent } from './terms-and-conditions/terms-and-conditions.component';
 import { FormsModule } from '@angular/forms';
 import { ActivateAccountComponent } from './activate-account/activate-account.component';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { CodeInputModule } from 'angular-code-input';
 import { HttpTokenInterceptor } from './services/interceptor/http-token.interceptor';
 import { BackofficeModule } from './backoffice/backoffice.module';
@@ -25,43 +25,37 @@ import { WishlistComponent } from './wishlist/wishlist.component';
 import { PersonalDetailsComponent } from './personal-details/personal-details.component';
 import { UpdatePasswordComponent } from './update-password/update-password.component';
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    LayoutComponent,
-    HeaderComponent,
-    FooterComponent,
-    LoginComponent,
-    ResetPasswordComponent,
-    RegisterComponent,
-    TermsAndConditionsComponent,
-    ActivateAccountComponent,
-    CategoryComponent,
-    ProductComponent,
-    OrderHistoryComponent,
-    WishlistComponent,
-    PersonalDetailsComponent,
-    UpdatePasswordComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    FormsModule,
-    HttpClientModule,
-    CodeInputModule,
-    BackofficeModule
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    HttpClient,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: HttpTokenInterceptor,
-      multi: true
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        LayoutComponent,
+        HeaderComponent,
+        FooterComponent,
+        LoginComponent,
+        ResetPasswordComponent,
+        RegisterComponent,
+        TermsAndConditionsComponent,
+        ActivateAccountComponent,
+        CategoryComponent,
+        ProductComponent,
+        OrderHistoryComponent,
+        WishlistComponent,
+        PersonalDetailsComponent,
+        UpdatePasswordComponent
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        FormsModule,
+        CodeInputModule,
+        BackofficeModule], providers: [
+        HttpClient,
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: HttpTokenInterceptor,
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
