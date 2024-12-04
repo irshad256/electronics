@@ -1,2 +1,35 @@
-<div class="breadcrumbs">{{product.name}}</div>
-<img [src]="apiConfig.rootUrl + product.imgUrl">
+
+<div class="text-center pdp-header">
+    <p class="breadcrumbs grey">Home / {{product.name}}</p>
+    <h2>{{product.name}}</h2>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <img [src]="apiConfig.rootUrl + product.imgUrl">
+        </div>
+        <div class="col">
+            <p class="grey">ID {{product.code}}</p>
+            <p><b>{{product.price | currency}}</b></p>
+            <p [innerHTML]=product.description></p>
+            <h5>Qty</h5>
+            <div class="quantity-bar">
+                <button (click)="decrement()" [disabled]="quantity <= 1">-</button>
+                <input type="number" [(ngModel)]="quantity" min="1" />
+                <button (click)="increment()">+</button>
+                <p class="stock-status grey" *ngIf="product.stock else outofstocktext">In stock</p>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" *ngIf="product.stock else outofstock">
+                Add To Cart
+            </button>
+            <ng-template #outofstocktext>
+                <p class="stock-status grey" >Out of stock</p>
+            </ng-template>
+            <ng-template #outofstock>
+                <button class="btn btn-lg btn-primary btn-block" disabled >
+                    Out of stock
+                </button>
+            </ng-template>
+        </div>
+    </div>
+</div>
