@@ -19,6 +19,14 @@ export class ProductComponent implements OnInit {
 
   product!: ProductDto;
   apiConfig: ApiConfiguration = new ApiConfiguration();
+  quantity: number = 1;
+
+  increment() {
+    this.quantity++;
+  }
+  decrement() {
+    this.quantity--;
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
